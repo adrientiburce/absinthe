@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Absinthe - Cours {% endblock %}
+{% block body %}
+
+<div class="container mt-4">
+    <h1>Mes Cours </h1>
+    <div class="row">
+        {% for cours in courses %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">
+                        <a href="{{path('course_show', {'id': cours.id}) }}">
+                            <h2 class="text-primary">{{cours.name}}</h2>
+                        </a>
+                    </div>
+                    <p class="card-text">
+                        <p>{{cours.description}}</p>
+                        <button class="btn secondary">{{cours.courseCategory.name}}</button>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

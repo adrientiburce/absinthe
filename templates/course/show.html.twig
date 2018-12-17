@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Absinthe - {{course.name}}
+{% endblock %}
+{% block body %}
+
+    <div class="container mt-4">
+        <h1>Cours
+        </h1>
+        <h3 class="text-center text-primary">
+        {{course.name}}
+        </h3>
+            
+            <div class="jumbotron">
+            <p>
+                {{course.description}}
+            </p>
+            </div>
+            <h3>Documents </h3>
+    </div>
+{% endblock %}

@@ -1,13 +1,37 @@
 security:
+    encoders:
+        App\Entity\User:
+            algorithm: argon2i
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                # property: email
+    
+    role_hierarchy:
+        ROLE_MODETATEUR: ROLE_USER
+        ROLE_ADMIN: ROLE_MODERATEUR
+        ROLE_DEV: ROLE_ADMIN
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                target: home
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     home
 
             # activate different ways to authenticate
 

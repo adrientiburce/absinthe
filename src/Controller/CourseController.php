@@ -5,9 +5,14 @@ namespace App\Controller;
 use App\Entity\Course;
 use App\Repository\CourseRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
+
+/**
+ * @IsGranted("ROLE_USER");
+ */
 class CourseController extends AbstractController
 {
     private $repo; 

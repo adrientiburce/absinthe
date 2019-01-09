@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LoginController extends AbstractController
 {
     /**
-     * @Route("/login", name="login")
+     * @Route("/ll", name="login")
      */
     public function index()
     {

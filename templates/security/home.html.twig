@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Absinthe - Mon Compte{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+<h2>Mon Compte</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="2">Champ</th>
+            <th >Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Email</th>
+            <td> {{app.user.email}}</td>
+            <td>Modifier</td>
+        </tr>
+        <tr>
+            <th colspan="2">Mot de Passe </th>
+            <td>Modifier</td>
+        </tr>
+        <tr>
+            <th>Pseudo</th>
+            <td>{{app.user.pseudo|default('pseudo non renseigné')}}</td>
+            <td>Modifier</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+{% endblock %}

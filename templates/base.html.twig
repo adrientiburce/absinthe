@@ -3,10 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- color for url tab on mobile -->
+    <meta name="theme-color" content="#D3D3D3">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Absinthe{% endblock %}</title>
     {% block stylesheets %}
-
     {% endblock %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
@@ -20,10 +21,10 @@
         <a class="navbar-brand" href="{{path('home')}}">Absinthe</a>
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                {% if app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('course_index')}}">Cours</a>
                 </li>
-                {% if app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">Mes Documents</a>
                 </li>
@@ -33,6 +34,9 @@
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('app_login')}}" style="color:cyan;">Connexion </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('register')}}">Inscription </a>
                 </li>
                 {% endif %}
             </ul>

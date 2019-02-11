@@ -28,6 +28,11 @@ class CourseCategory
      */
     private $courses;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $semester;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -77,6 +82,18 @@ class CourseCategory
                 $course->setCourseCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSemester(): ?string
+    {
+        return $this->semester;
+    }
+
+    public function setSemester(?string $semester): self
+    {
+        $this->semester = $semester;
 
         return $this;
     }

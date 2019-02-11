@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %}Absinthe - Accueil{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+
 {% block body %}
 <div class="container mt-4">
     <h1>Accueil</h1>
@@ -17,5 +21,7 @@
     </div>
     {% endif %}
 </div>
-
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
 {% endblock %}

@@ -1,0 +1,14 @@
+@import "~bootstrap/scss/bootstrap";
+
+$primary-color : #2f2f2f;
+$bkgd-color: rgba(40, 53, 131, 0.05);
+
+body {
+    font-size: 100%;
+    color: $primary-color;
+    background-color:$bkgd-color;
+    
+    font-family: 'Sofia Pro';
+    font-weight: normal;
+    font-style: normal;
+}

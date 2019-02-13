@@ -21,16 +21,37 @@ class CourseController extends AbstractController
         $this->repo = $repo;
     }
 
-    /**
-     * @Route("/cours", name="course_index")
-     */
-    public function index()
-    {
+    public function generateCategory($category){
         $repo = $this->repo;
-        $courses = $repo->findAll();
+        $courses = $repo->findWithCategory($category);
+        $serializer = $this->get('serializer');
         return $this->render('course/index.html.twig', [
-            'courses' => $courses
+            'courses' => $courses,
+            'title' => $category,
+            'props' => $serializer->normalize([
+                'courses' => $courses])
         ]);
+    }
+
+    /**
+     * @Route("/cours/tronc-commun", name="course_tronc")
+     */
+    public function get_tronc(){
+        return $this->generateCategory('Tronc Commun');
+    }
+
+    /**
+     * @Route("/cours/electifs/integration", name="course_integration")
+     */
+     public function get_inte(){
+        return $this->generateCategory("Electifs d'Integration");
+    }
+
+      /**
+     * @Route("/cours/electifs/disciplinaires", name="course_disciplinaires")
+     */
+    public function get_disciplinaires(){
+        return $this->generateCategory("Electifs Disciplinaires");
     }
 
     /**
@@ -39,9 +60,11 @@ class CourseController extends AbstractController
     public function show(Course $course)
     {
         $this->course = $course;
-        
+        $serializer = $this->get('serializer');
+
         return $this->render('course/show.html.twig', [
-            'course' => $course,
+            'props' => $serializer->normalize(
+                ['course' => $course]),
         ]);
     }
 }

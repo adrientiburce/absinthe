@@ -1,4 +1,4 @@
-import ReactOnRails from 'react-on-rails'
-import ReactApp from './ReactApp';
+import ReactOnRails from 'react-on-rails';
+import Course from '../components/Course';
 
-ReactOnRails.register({ ReactApp });
+ReactOnRails.register({ Course });

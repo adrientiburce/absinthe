@@ -12,3 +12,8 @@ body {
     font-weight: normal;
     font-style: normal;
 }
+
+.card-hover:hover{
+    box-shadow: 1px 1px 8px #555;
+    transition: all .4s;
+}

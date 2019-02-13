@@ -22,9 +22,9 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=100, unique=true)
      * @Assert\Regex(
-     *      pattern="/centrale.centralelille.fr$/",
+     *      pattern="/@centrale.centralelille.fr$/",
      *      message="Votre adresse doit avoir comme domaine : @centrale.centralelille.fr"
      * )
      */
@@ -55,7 +55,7 @@ class User implements UserInterface
     private $created_at;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(type="string", length=100, unique=true, nullable=true)
      * @Assert\Length(min=4, minMessage="Votre pseudo doit contenir au moins 4 caractères")
      */
     private $pseudo;

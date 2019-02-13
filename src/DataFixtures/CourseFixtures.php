@@ -51,6 +51,7 @@ class CourseFixtures extends Fixture
         }
         $manager->persist($courseCate1);
         $manager->persist($courseCate2);
+        $manager->persist($courseCate3);
         $manager->flush();
     }
 }

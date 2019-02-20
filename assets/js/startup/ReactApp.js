@@ -1,12 +1,12 @@
-import React from "react";
-import Course from "../components/Course.js";
+import React from 'react'
+import Course from '../components/Course'
 
-const ReactApp = ({props}) => {
+const ReactApp = ({ props }) => {
   return (
     <div>
       <Course props={props} />
     </div>
-  );
-};
+  )
+}
 
-export default ReactApp;
+export default ReactApp

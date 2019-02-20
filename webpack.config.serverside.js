@@ -1,10 +1,10 @@
-var Encore = require("@symfony/webpack-encore");
+var Encore = require('@symfony/webpack-encore')
 
 Encore
   // directory where all compiled assets will be stored
-  .setOutputPath("var/webpack/")
+  .setOutputPath('var/webpack/')
   // what's the public path to this directory (relative to your project's document root dir)
-  .setPublicPath("/")
+  .setPublicPath('/')
   // empty the outputPath dir before each build
   .cleanupOutputBeforeBuild()
   // enable react in babel
@@ -12,7 +12,7 @@ Encore
   // so we don't need to deal with runtime.js
   .disableSingleRuntimeChunk()
   // will output as app/Resources/webpack/server-bundle.js
-  .addEntry('server-bundle','./assets/js/startup/registration.js')
+  .addEntry('server-bundle', './assets/js/startup/registration.js')
 
 // export the final configuration
-module.exports = Encore.getWebpackConfig();
+module.exports = Encore.getWebpackConfig()

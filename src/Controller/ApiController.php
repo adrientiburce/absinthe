@@ -40,5 +40,4 @@ class ApiController extends Controller
 
         return new JsonResponse($serializer->normalize($course));
     }
-
 }

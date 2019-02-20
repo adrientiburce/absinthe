@@ -155,7 +155,7 @@ class User implements UserInterface
      * Get the value of confirmPassword
      *
      * @return  string
-     */ 
+     */
     public function getConfirmPassword()
     {
         return $this->confirmPassword;
@@ -167,7 +167,7 @@ class User implements UserInterface
      * @param  string  $confirmPassword
      *
      * @return  self
-     */ 
+     */
     public function setConfirmPassword(string $confirmPassword)
     {
         $this->confirmPassword = $confirmPassword;

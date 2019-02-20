@@ -2,18 +2,71 @@
 
 $primary-color : #2f2f2f;
 $bkgd-color: rgba(40, 53, 131, 0.05);
+$blue-title: rgb(97, 173, 199);
 
 body {
     font-size: 100%;
     color: $primary-color;
-    background-color:$bkgd-color;
-    
+    background-color: $bkgd-color;
     font-family: 'Sofia Pro';
     font-weight: normal;
     font-style: normal;
 }
 
-.card-hover:hover{
-    box-shadow: 1px 1px 8px #555;
-    transition: all .4s;
+.courses-title {
+    text-align: center;
+    margin-top: 20px;
+    color: rgb(61, 119, 138);
+}
+
+.block-courses {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 150px;
+}
+
+.card-courses {
+    border: 1px solid rgb(223, 223, 223);
+    margin: 10px;
+    padding: 10px;
+    transition: all .5s ease;
+    width: 350px;
+    height: 200px;
+    position: relative;
+
+    &:hover {
+        box-shadow: 1px 1px 4px rgb(138, 138, 138);
+        cursor: pointer;
+    }
+
+    &__title {
+        display: flex;
+        text-align: center;
+        color: rgb(96, 171, 196);
+        font-size: 1.3em;
+        padding-top: 5px;
+
+        &::before,
+        &::after {
+            content: "";
+            flex: 1 1;
+            background: rgb(61, 119, 138);
+            height: 2px;
+            align-self: center;
+            margin:auto 0.5em;
+        }
+    }
+}
+
+.card-courses__btn {
+    border: 3px $blue-title solid;
+    transition: all .3s ease;
+    display: inline-block;
+    position: absolute;
+    bottom: 10px;
+
+    &:hover {
+        background-color: rgb(170, 194, 201);
+    }
 }

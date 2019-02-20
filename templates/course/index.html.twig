@@ -3,25 +3,14 @@
 {% block title %}Absinthe - {{ title }}{% endblock %}
 {% block body %}
 
-<div class="container mt-4">
-    <h1 class="mb-4">Cours : {{ title }} </h1>
-    <div class="row">
-        {% for cours in courses %}
-        <div class="col-md-4">
-            <div class="card mb-4 card-hover" onClick="location.href='{{path('course_show', {'id': cours.id}) }}'" style="cursor:pointer">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h3 class="text-primary">{{cours.name}}</h3 >
-                    </div>
-                    <p class="card-text">
-                        <p>{{cours.description}}</p>
-                        <button class="btn btn-sm btn-outline-info" style="cursor:default">{{cours.courseCategory.name}}</button>
-                    </p>
-                </div>
-            </div>
-
-        </div>
-        {% endfor %}
+<h1 class="courses-title">Cours : {{ title }} </h1>
+<div class="block-courses">
+    {% for cours in courses %}
+    <div class="card-courses" onClick="location.href='{{path('course_show', {'id': cours.id}) }}'">
+        <h3 class="card-courses__title">{{cours.name}}</h3>
+        <p>{{cours.description}}</p>
+        <button class="card-courses__btn">{{cours.courseCategory.name}}</button>
     </div>
+    {% endfor %}
 </div>
 {% endblock %}

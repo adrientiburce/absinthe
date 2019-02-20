@@ -22,8 +22,8 @@ class CourseRepository extends ServiceEntityRepository
     public function findWithCategory($category)
     {
         return $this->createQueryBuilder('c')
-            ->leftJoin('c.courseCategory', 'cate')
-            ->andWhere('cate.name = :category')
+            ->leftJoin('c.courseCategory', 'category')
+            ->andWhere('category.name = :category')
             ->setParameter('category', $category)
             ->getQuery()
             ->getResult()

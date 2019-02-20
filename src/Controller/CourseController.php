@@ -9,19 +9,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-
 /**
  * @IsGranted("ROLE_USER");
  */
 class CourseController extends AbstractController
 {
-    private $repo; 
+    private $repo;
 
-    public function __construct(CourseRepository $repo){
+    public function __construct(CourseRepository $repo)
+    {
         $this->repo = $repo;
     }
 
-    public function generateCategory($category){
+    public function generateCategory($category)
+    {
         $repo = $this->repo;
         $courses = $repo->findWithCategory($category);
         $serializer = $this->get('serializer');
@@ -36,21 +37,24 @@ class CourseController extends AbstractController
     /**
      * @Route("/cours/tronc-commun", name="course_tronc")
      */
-    public function get_tronc(){
+    public function getCourse_tronc()
+    {
         return $this->generateCategory('Tronc Commun');
     }
 
     /**
      * @Route("/cours/electifs/integration", name="course_integration")
      */
-     public function get_inte(){
+    public function getCourse_integration()
+    {
         return $this->generateCategory("Electifs d'Integration");
     }
 
       /**
      * @Route("/cours/electifs/disciplinaires", name="course_disciplinaires")
      */
-    public function get_disciplinaires(){
+    public function getCourse_disciplinaires()
+    {
         return $this->generateCategory("Electifs Disciplinaires");
     }
 
@@ -64,7 +68,8 @@ class CourseController extends AbstractController
 
         return $this->render('course/show.html.twig', [
             'props' => $serializer->normalize(
-                ['course' => $course]),
+                ['course' => $course]
+            ),
         ]);
     }
 }

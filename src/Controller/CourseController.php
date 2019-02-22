@@ -37,7 +37,7 @@ class CourseController extends AbstractController
 
         return $this->render('course/index.html.twig', [
             // We pass an array as props
-            'props' => $serializer->normalize(['courses' => $courses]),
+            'props' => $serializer->serialize(['courses' => $courses], 'json'),
         ]);
     }
 
@@ -87,15 +87,17 @@ class CourseController extends AbstractController
         $course = $this->getDoctrine()
             ->getRepository(Course::class)
             ->find($id);
+        $user = $this->getUser();
+        $isLikedByUser = $course->isLikedByUser($user);
 
         return $this->render('course/show.html.twig', [
             // We pass an array as props
-            'props' => $serializer->serialize(['course' => $course], 'json'),
+            'props' => $serializer->serialize(['course' => $course, 'isLikedByUser' => $isLikedByUser], 'json'),
         ]);
     }
 
     /**
-     * @Route("/course/favorites/{id}", name="course_favorites", requirements={"id"="\d+"})
+     * @Route("/cours/favorite/{id}", name="course_favorites", requirements={"id"="\d+"})
      */
     public function favorites(Course $course, CourseFavoritesRepository $favoriteRepo, ObjectManager $manager)
     {
@@ -107,13 +109,13 @@ class CourseController extends AbstractController
                 'user' => $user,
             ]);
 
-            $favoriteRepo->remove($favorite);
+            $manager->remove($favorite);
             $manager->flush();
         }
         else{
             $courseFavorite = new CourseFavorites();
             $courseFavorite->setUser($user)
-                            ->setCourse($couse);
+                            ->setCourse($course);
             $manager->persist($courseFavorite);
             $manager->flush();
         }

@@ -108,8 +108,7 @@ class Course implements \JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'category' => $this->courseCategory->getName(),
-            'isLiked' => 0,
+            'category' => $this->courseCategory->getName()
         );
     }
 

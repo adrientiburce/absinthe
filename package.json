@@ -16,8 +16,8 @@
         "lint": "standard --fix",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "ssr": "encore dev --config webpack.config.serverside.js --watch",
-        "webpack-dev": "encore dev-server",
+        "server": "encore dev --config webpack.config.serverside.js --watch",
+        "client": "encore dev-server",
         "build": "encore production --progress"
     },
     "dependencies": {

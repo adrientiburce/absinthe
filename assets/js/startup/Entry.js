@@ -1,8 +1,8 @@
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { BrowserRouter, StaticRouter } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
-import App from './CourseApp'
+import React from "react";
+import { renderToString } from "react-dom/server";
+import { BrowserRouter, StaticRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import App from "./CourseApp";
 
 export default (initialProps, context) => {
   if (context.serverSide) {

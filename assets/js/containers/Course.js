@@ -9,7 +9,7 @@ export default class Course extends React.Component {
     // We check if there is no course (only client side)
     // Or our id doesn't match the course that we received server-side
     
-    if ( !this.props.course ) {
+    if ( !this.props.course || (this.props.match.params.id && this.props.match.params.id != this.props.course.id) ) {
       this.state = {
         course: null,
         loading: true
@@ -17,6 +17,7 @@ export default class Course extends React.Component {
     } else {
       this.state = {
         course: this.props.course,
+        isLikedByUser: this.props.isLikedByUser,
         loading: false
       }
     }
@@ -24,7 +25,7 @@ export default class Course extends React.Component {
 
   componentDidMount () {
     if (this.state.loading) {
-      fetch(this.props.base + '/api/courses/' + this.props.course.id)
+      fetch(this.props.base + '/api/cours/' + this.props.course.id)
         .then(response => response.json())
         .then(data => {
           this.setState({
@@ -37,15 +38,14 @@ export default class Course extends React.Component {
 
   render () {
     if (this.state.loading) {
-      console.log( this.props.base);
       return <div>Chargement du cours ... </div>
     } else {
       return (
         <div>
           <Helmet>
-            <title>Absinthe - {this.state.course.name}</title>
+            <title>{this.state.course.name}</title>
           </Helmet>
-          <CourseWidget course={this.state.course} />
+          <CourseWidget course={this.state.course} isLikedByUser={this.state.isLikedByUser} base={this.props.base} />
         </div>
       )
     }

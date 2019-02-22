@@ -27,7 +27,7 @@ class CourseController extends AbstractController
     }
     
     /**
-     * @Route("/cours", name="homepage")
+     * @Route("/cours", name="course_home")
      */
     public function homeAction(SerializerInterface $serializer)
     {
@@ -92,7 +92,7 @@ class CourseController extends AbstractController
 
         return $this->render('course/show.html.twig', [
             // We pass an array as props
-            'props' => $serializer->serialize(['course' => $course, 'isLikedByUser' => $isLikedByUser], 'json'),
+            'props' => $serializer->serialize($course, 'json'),
         ]);
     }
 

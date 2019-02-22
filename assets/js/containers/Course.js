@@ -3,33 +3,35 @@ import CourseWidget from '../components/Course';
 import { Helmet } from 'react-helmet';
 
 export default class Course extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-
+  constructor (props) {
+    super(props)
     // We check if there is no course (only client side)
     // Or our id doesn't match the course that we received server-side
-    
-    if ( !this.props.course || (this.props.match.params.id && this.props.match.params.id != this.props.course.id) ) {
+    if (
+      !this.props.course ||
+      (this.props.match.params.id &&
+        this.props.match.params.id !== this.props.course.id)
+    ) {
       this.state = {
         course: null,
         loading: true
-      }
+      };
     } else {
       this.state = {
         course: this.props.course,
-        isLikedByUser: this.props.isLikedByUser,
         loading: false
-      }
-    }
+      };
+}
   }
 
   componentDidMount () {
     if (this.state.loading) {
-      fetch(this.props.base + '/api/cours/' + this.props.course.id)
+      fetch(this.props.base + '/api/cours/' + this.props.match.params.id)
         .then(response => response.json())
         .then(data => {
           this.setState({
-            course: data,
+            course: data.course,
+            isLikedByUser: data.isLikedByUser,
             loading: false
           })
         })

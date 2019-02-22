@@ -25,6 +25,9 @@ class Course extends Component {
     // we call serverside 
     //window.location.href = this.props.base + '/cours/favorite/' + this.props.course.id;
     fetch(this.props.base + '/cours/favorite/' + this.props.course.id)
+      .then(response => {
+        console.log(response);
+      })
   }
 
   render () {

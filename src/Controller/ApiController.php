@@ -27,7 +27,7 @@ class ApiController extends Controller
     }
 
     /**
-     * @Route("/api/course/{id}", name="api_course")
+     * @Route("/api/courses/{id}", name="api_course")
      *
      * Needed for client-side navigation after initial page load
      */

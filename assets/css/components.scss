@@ -1,12 +1,18 @@
 $blue-title: rgb(97, 173, 199);
 
 .card-course {
-    margin: 25px auto !important;
+    margin: 25px auto;
     padding: 15px 20px;
     max-width: 1000px;
     border: 1px solid rgb(223, 223, 223);
     box-shadow: 1px 1px 8px #555;
     transition: box-shadow 0.4s ease;
+
+    @media screen and (max-width: 1050px) {
+        & {
+            margin: 25px 20px;
+        }
+      }
 
     &__legend{
         padding-left: 5px;
@@ -20,7 +26,6 @@ $blue-title: rgb(97, 173, 199);
             transform: translateX(15px);
         }
     }
-
 
 }
 

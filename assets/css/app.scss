@@ -2,7 +2,8 @@
 
 $primary-color : #2f2f2f;
 $bkgd-color: rgba(40, 53, 131, 0.05);
-$blue-title: rgb(97, 173, 199);
+$blue-hell: rgb(97, 173, 199);
+$blue-dark: rgb(61, 119, 138);
 
 body {
     font-size: 100%;
@@ -16,7 +17,7 @@ body {
 .courses-title {
     text-align: center;
     margin-top: 20px;
-    color: rgb(61, 119, 138);
+    color: $blue-dark;
 }
 
 .block-courses {
@@ -43,7 +44,7 @@ body {
     &__title {
         display: flex;
         text-align: center;
-        color: rgb(96, 171, 196);
+        color: $blue-dark;
         font-size: 1.3em;
         padding-top: 5px;
 
@@ -51,7 +52,7 @@ body {
         &::after {
             content: "";
             flex: 1 1;
-            background: rgb(61, 119, 138);
+            background: $blue-hell;
             height: 2px;
             align-self: center;
             margin:auto 0.5em;
@@ -60,7 +61,7 @@ body {
 }
 
 .card-courses__btn {
-    border: 3px $blue-title solid;
+    border: 3px $blue-hell solid;
     transition: all .3s ease;
     display: inline-block;
     position: absolute;
@@ -69,4 +70,9 @@ body {
     &:hover {
         background-color: rgb(170, 194, 201);
     }
+}
+
+a, a:hover, a:focus {
+    text-decoration: none;
+    color: black;
 }

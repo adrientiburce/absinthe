@@ -16,7 +16,7 @@ const CoursesApp = ({ initialProps, appContext }) => {
         path={'/cours'}
         exact
         render={props => (
-          <Courses base={appContext.base} {...props} />
+          <Courses  {...initialProps} base={appContext.base} {...props} />
         )}
       />
     </div>

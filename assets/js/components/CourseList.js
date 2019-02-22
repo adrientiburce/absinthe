@@ -1,17 +1,20 @@
 import React from 'react';
-import Course from './Course';
+import CourseSmall from './CourseSmall';
 import { Link } from 'react-router-dom';
 
 const CourseList = props => (
   <div>
+  <h1 className="courses-title"> Les Cours </h1>
+  <div className="block-courses">
     {props.courses.map((course, idx) => (
-      <div key={idx}>
         <Link to={'/cours/' + course.id }>
-          <Course key={idx} course={course} id={idx} />
-        </Link>
-      </div>
+        <div key={idx} class="card-courses">
+          <CourseSmall key={idx} course={course} idx={idx} />
+        </div>
+      </Link>
     ))}
+  </div>
   </div>
 )
 
-export default CourseList
+export default CourseList;

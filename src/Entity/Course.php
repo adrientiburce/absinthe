@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CourseRepository")
@@ -35,6 +38,16 @@ class Course implements \JsonSerializable
      * @ORM\ManyToOne(targetEntity="App\Entity\CourseCategory", inversedBy="courses")
      */
     private $courseCategory;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CourseFavorites", mappedBy="course")
+     */
+    private $courseFavorites;
+
+    public function __construct()
+    {
+        $this->courseFavorites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -92,9 +105,54 @@ class Course implements \JsonSerializable
     public function jsonSerialize()
     {
         return array(
+            'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'category' => $this->courseCategory->getName(),
+            'isLiked' => 0,
         );
     }
+
+    /**
+     * @return Collection|CourseFavorites[]
+     */
+    public function getCourseFavorites(): Collection
+    {
+        return $this->courseFavorites;
+    }
+
+    public function addCourseFavorite(CourseFavorites $courseFavorite): self
+    {
+        if (!$this->courseFavorites->contains($courseFavorite)) {
+            $this->courseFavorites[] = $courseFavorite;
+            $courseFavorite->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourseFavorite(CourseFavorites $courseFavorite): self
+    {
+        if ($this->courseFavorites->contains($courseFavorite)) {
+            $this->courseFavorites->removeElement($courseFavorite);
+            // set the owning side to null (unless already changed)
+            if ($courseFavorite->getCourse() === $this) {
+                $courseFavorite->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * is a Course liked by a user 
+     */
+    public function isLikedByUser(User $user)
+    {
+        foreach($this->courseFavorites as $favorite){
+            if($favorite->getUser() === $user) return true;
+        }
+        return false;
+    }
+
 }

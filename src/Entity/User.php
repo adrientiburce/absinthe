@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -59,6 +61,16 @@ class User implements UserInterface
      * @Assert\Length(min=4, minMessage="Votre pseudo doit contenir au moins 4 caractères")
      */
     private $pseudo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CourseFavorites", mappedBy="user")
+     */
+    private $favoritesCourses;
+
+    public function __construct()
+    {
+        $this->favoritesCourses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -183,6 +195,37 @@ class User implements UserInterface
     public function setPseudo(?string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourseFavorites[]
+     */
+    public function getFavoritesCourses(): Collection
+    {
+        return $this->favoritesCourses;
+    }
+
+    public function addFavoritesCourse(CourseFavorites $favoritesCourse): self
+    {
+        if (!$this->favoritesCourses->contains($favoritesCourse)) {
+            $this->favoritesCourses[] = $favoritesCourse;
+            $favoritesCourse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoritesCourse(CourseFavorites $favoritesCourse): self
+    {
+        if ($this->favoritesCourses->contains($favoritesCourse)) {
+            $this->favoritesCourses->removeElement($favoritesCourse);
+            // set the owning side to null (unless already changed)
+            if ($favoritesCourse->getUser() === $this) {
+                $favoritesCourse->setUser(null);
+            }
+        }
 
         return $this;
     }

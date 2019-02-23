@@ -17,6 +17,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "server": "encore dev --config webpack.config.serverside.js --watch",
+        "server-build": "encore dev --config webpack.config.serverside.js",
         "client": "encore dev-server",
         "build": "encore production --progress"
     },

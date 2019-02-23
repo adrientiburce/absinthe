@@ -47,15 +47,13 @@ class CourseController extends AbstractController
         $courses = $repo->findWithCategory($category);
         $serializer = $this->get('serializer');
         return $this->render('course/index.html.twig', [
-            'courses' => $courses,
-            'title' => $category,
-            'props' => $serializer->normalize([
-                'courses' => $courses])
+            // We pass an array as props
+            'props' => $serializer->serialize(['courses' => $courses], 'json'),
         ]);
     }
 
     /**
-     * @Route("/course/tronc-commun", name="course_tronc")
+     * @Route("/cours-tronc-commun", name="course_tronc")
      */
     public function getCourse_tronc()
     {
@@ -63,15 +61,15 @@ class CourseController extends AbstractController
     }
 
     /**
-     * @Route("/course/electifs-integration", name="course_integration")
+     * @Route("/cours-integration", name="course_integration")
      */
     public function getCourse_integration()
     {
         return $this->generateCategory("Electifs d'Integration");
     }
 
-      /**
-     * @Route("/course/electifs-disciplinaires", name="course_disciplinaires")
+    /**
+     * @Route("/cours-disciplinaires", name="course_disciplinaires")
      */
     public function getCourse_disciplinaires()
     {
@@ -93,6 +91,7 @@ class CourseController extends AbstractController
         return $this->render('course/show.html.twig', [
             // We pass an array as props
             'props' => $serializer->serialize($course, 'json'),
+            'course' => $course
         ]);
     }
 

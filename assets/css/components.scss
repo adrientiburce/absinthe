@@ -1,5 +1,5 @@
 $blue-title: rgb(97, 173, 199);
-
+$blue-dark: rgb(61, 119, 138);
 .card-course {
     margin: 25px auto;
     padding: 15px 20px;
@@ -57,4 +57,39 @@ $blue-title: rgb(97, 173, 199);
     font-size: 28px;
     color: rgb(207, 207, 77);
     opacity: .9;
+}
+.card__legend{
+    position: relative;
+}
+
+.course__btn{
+    padding: 2px 15px;
+    margin-right: 20px;
+    border: 2px solid $blue-title;
+    border-radius: 24px;
+    background-color: $blue-dark;
+    color: white;
+    font-size: 15px;
+    transition: all .5s ease;
+    cursor: default !important;
+
+    &:hover{
+        border-color: $blue-dark;
+        transform: scale(1.2);
+        padding: 2px 20px;
+    }
+
+    &--matiere{
+        border: 2px solid rgb(14, 150, 132);
+        background-color: rgb(44, 104, 104);
+        position: absolute;
+        right: 10px;
+        
+        &:hover{
+            background-color: rgb(14, 150, 132);
+            transform: scale(1.2);
+            padding: 2px 20px;
+        }
+    }
+
 }

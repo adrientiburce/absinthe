@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CourseCategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\LabelCourseRepository")
  */
-class CourseCategory
+class LabelCourse
 {
     /**
      * @ORM\Id()
@@ -24,19 +24,9 @@ class CourseCategory
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Course", mappedBy="courseCategory")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Course", mappedBy="labels")
      */
     private $courses;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $semester;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $promotion;
 
     public function __construct()
     {
@@ -72,7 +62,7 @@ class CourseCategory
     {
         if (!$this->courses->contains($course)) {
             $this->courses[] = $course;
-            $course->setCourseCategory($this);
+            $course->addLabel($this);
         }
 
         return $this;
@@ -82,35 +72,8 @@ class CourseCategory
     {
         if ($this->courses->contains($course)) {
             $this->courses->removeElement($course);
-            // set the owning side to null (unless already changed)
-            if ($course->getCourseCategory() === $this) {
-                $course->setCourseCategory(null);
-            }
+            $course->removeLabel($this);
         }
-
-        return $this;
-    }
-
-    public function getSemester(): ?string
-    {
-        return $this->semester;
-    }
-
-    public function setSemester(?string $semester): self
-    {
-        $this->semester = $semester;
-
-        return $this;
-    }
-
-    public function getPromotion(): ?string
-    {
-        return $this->promotion;
-    }
-
-    public function setPromotion(?string $promotion): self
-    {
-        $this->promotion = $promotion;
 
         return $this;
     }

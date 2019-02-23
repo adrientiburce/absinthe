@@ -44,9 +44,15 @@ class Course implements \JsonSerializable
      */
     private $courseFavorites;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\LabelCourse", inversedBy="courses")
+     */
+    private $labels;
+
     public function __construct()
     {
         $this->courseFavorites = new ArrayCollection();
+        $this->labels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,7 +114,9 @@ class Course implements \JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'category' => $this->courseCategory->getName()
+            'category' => $this->courseCategory->getName(),
+            'semester' => $this->courseCategory->getSemester(),
+            'promotion' => $this->courseCategory->getPromotion()
         );
     }
 
@@ -152,6 +160,32 @@ class Course implements \JsonSerializable
             if($favorite->getUser() === $user) return true;
         }
         return false;
+    }
+
+    /**
+     * @return Collection|LabelCourse[]
+     */
+    public function getLabels(): Collection
+    {
+        return $this->labels;
+    }
+
+    public function addLabel(LabelCourse $label): self
+    {
+        if (!$this->labels->contains($label)) {
+            $this->labels[] = $label;
+        }
+
+        return $this;
+    }
+
+    public function removeLabel(LabelCourse $label): self
+    {
+        if ($this->labels->contains($label)) {
+            $this->labels->removeElement($label);
+        }
+
+        return $this;
     }
 
 }

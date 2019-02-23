@@ -33,17 +33,17 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item disabled text-secondary" href="#">G1</a>
-                        <a class="dropdown-item" href="{{path('course_home')}}">Tronc Commun</a>
+                        <a class="dropdown-item" href="{{path('course_tronc')}}">Tronc Commun</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{path('course_disciplinaires')}}">Electifs Disciplinaires</a>
-                        <a class="dropdown-item" href="{{path('course_integration')}}">Electifs d'intégration</a>
+                        <a class="dropdown-item" href="{{path('course_integration')}}">Electifs d'Intégration</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Mes Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{path('app_logout')}}" style="color:red;">Déconnexion </a>
+                    <a class="nav-link" id="nav__logout" href="{{path('app_logout')}}">Déconnexion </a>
                 </li>
                 {% else %}
                 <li class="nav-item">

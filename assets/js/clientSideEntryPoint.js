@@ -1,3 +1,3 @@
-import "./startup/registration.js";
+import './startup/registration.js';
 
-import "./app.js";
+import './app.js';

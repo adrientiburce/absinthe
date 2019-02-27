@@ -102,7 +102,7 @@ class CourseController extends AbstractController
     {
         $user = $this->getUser();
 
-        if($course->isLikedByUser($user)){
+        if ($course->isLikedByUser($user)) {
             $favorite = $favoriteRepo->findOneBy([
                 'course' => $course,
                 'user' => $user,
@@ -110,14 +110,12 @@ class CourseController extends AbstractController
 
             $manager->remove($favorite);
             $manager->flush();
-        }
-        else{
+        } else {
             $courseFavorite = new CourseFavorites();
             $courseFavorite->setUser($user)
                             ->setCourse($course);
             $manager->persist($courseFavorite);
             $manager->flush();
         }
-
     }
 }

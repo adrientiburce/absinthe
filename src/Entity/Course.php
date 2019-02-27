@@ -152,12 +152,14 @@ class Course implements \JsonSerializable
     }
 
     /**
-     * is a Course liked by a user 
+     * is a Course liked by a user
      */
     public function isLikedByUser(User $user)
     {
-        foreach($this->courseFavorites as $favorite){
-            if($favorite->getUser() === $user) return true;
+        foreach ($this->courseFavorites as $favorite) {
+            if ($favorite->getUser() === $user) {
+                return true;
+            }
         }
         return false;
     }
@@ -187,5 +189,4 @@ class Course implements \JsonSerializable
 
         return $this;
     }
-
 }

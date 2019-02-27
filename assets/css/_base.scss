@@ -1,0 +1,22 @@
+* {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  flex: 1 1 auto;
+}
+
+footer {
+  background-color: rgb(204, 204, 204);
+  margin-top: 10px;
+}

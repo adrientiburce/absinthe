@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig',[
+        return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
         ]);
@@ -39,7 +39,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $user->setCreatedAt(new \DateTime());
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
 
@@ -61,8 +61,9 @@ class SecurityController extends AbstractController
     /**
      * @Route("/mon-compte", name="home_login")
      */
-    public function home(){
-        return $this->render('security/home.html.twig',[
+    public function home()
+    {
+        return $this->render('security/home.html.twig', [
 
         ]);
     }

@@ -10,6 +10,7 @@
     {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
     {% endblock %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -21,11 +22,21 @@
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 {% if app.user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('course_index')}}">Cours</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Cours
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item disabled text-secondary" href="#">G1</a>
+                        <a class="dropdown-item" href="{{path('course_tronc')}}">Tronc Commun</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{path('course_disciplinaires')}}">Electifs Disciplinaires</a>
+                        <a class="dropdown-item" href="{{path('course_integration')}}">Electifs d'intégration</a>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mes Documents</a>
+                    <a class="nav-link disabled" href="#">Mes Documents</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('app_logout')}}" style="color:red;">Déconnexion </a>

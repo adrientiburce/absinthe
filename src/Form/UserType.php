@@ -26,7 +26,7 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe (min 6 caractères)',
             ])
-            ->add('confirm_password', PasswordType::class,[
+            ->add('confirm_password', PasswordType::class, [
                 'label' => 'Confirmation du mot de passe',
 
             ])

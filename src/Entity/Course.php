@@ -89,11 +89,12 @@ class Course implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize(){
+    public function jsonSerialize()
+    {
         return array(
-            'name' => $this->name, 
-            'description' => $this->description, 
-            'category' => $this->courseCategory->getName(), 
+            'name' => $this->name,
+            'description' => $this->description,
+            'category' => $this->courseCategory->getName(),
         );
     }
 }

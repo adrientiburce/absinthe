@@ -1,4 +1,4 @@
-var Encore = require('@symfony/webpack-encore');
+var Encore = require('@symfony/webpack-encore')
 
 Encore
   // directory where all compiled assets will be stored
@@ -7,24 +7,12 @@ Encore
   .setPublicPath('/')
   // empty the outputPath dir before each build
   .cleanupOutputBeforeBuild()
-   
-  // will output as app/Resources/webpack/server-bundle.js
-  .addEntry('server-bundle','./assets/js/startup/registration.js')
-  // Add react preset
+  // enable react in babel
   .enableReactPreset()
-
-.configureBabel(function (babelConfig) {
-    // add additional presets
-    babelConfig.presets.push('es2015');
-    babelConfig.presets.push('stage-0');
-
-// no plugins are added by default, but you can add some
-    // babelConfig.plugins.push('styled-jsx/babel');
-  })
-
-.enableSourceMaps(!Encore.isProduction())
-
-;
+  // so we don't need to deal with runtime.js
+  .disableSingleRuntimeChunk()
+  // will output as app/Resources/webpack/server-bundle.js
+  .addEntry('server-bundle', './assets/js/startup/registration.js')
 
 // export the final configuration
 module.exports = Encore.getWebpackConfig()

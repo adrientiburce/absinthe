@@ -69,7 +69,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if (!$user) {
             // if email not found we search for a pseudo !
             $user = $this->entityManager->getRepository(User::class)->findOneBy(['pseudo' => $credentials['email']]);
-            if(!$user){
+            if (!$user) {
                 throw new CustomUserMessageAuthenticationException("L'email ou le pseudo ne sont pas enregistrés");
             }
         }

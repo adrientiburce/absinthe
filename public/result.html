@@ -2,93 +2,16 @@
 PHPUnit 6.5.14 by Sebastian Bergmann and contributors.
 
 Testing Project Test Suite
-[33;1mR[0m                                                                   1 / 1 (100%)HTTP/1.1 200 OK
-Cache-Control: max-age=0, must-revalidate, private
-Content-Type:  text/html; charset=UTF-8
-Date:          Sun, 10 Mar 2019 18:22:24 GMT
-Set-Cookie:    MOCKSESSID=1b9b6ab53b69b651e7e168e2c7c9314caa24d5694d202435deb8a1a264a82a18; path=/; secure; httponly; samesite=lax
+[31;1mE[0m                                                                   1 / 1 (100%)
 
-<!DOCTYPE html>
-<html>
+Time: 42 ms, Memory: 4.00MB
 
-<head>
-    <meta charset="UTF-8">
-    <!-- color for url tab on mobile -->
-    <meta name="theme-color" content="#D3D3D3">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Absinthe - Inscription</title>        <link rel="stylesheet" href="/build/app.eee76dd7.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-        crossorigin="anonymous">
-</head>
-
-<body>
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
-                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="/">Absinthe</a>
-            <div class="collapse navbar-collapse" id="navbarToggler">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                                        <li class="nav-item">
-                        <a class="nav-link" href="/login" style="color:cyan;">Connexion </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/inscription">Inscription </a>
-                    </li>
-                                    </ul>
-                                            </div>
-        </nav>
-    </header>
-
-    <div class="main-container">
-        <div class="container">
-            <div id="react-container"><div class="container mt-4"><h1 class="h3 mb-3 font-weight-normal">Utiliser votre Adresse Centralienne pour vous inscrire : </h1><form name="user" method="post"><div class="form-group"><label for="user_email" class="required">Email<span class="invalid-feedback d-block"><span class="d-block"><span class="form-error-icon badge badge-danger text-uppercase">Erreur</span><span class="form-error-message">Cette valeur est déjà utilisée.</span></span></span></label><input type="email"             id="user_email" name="user[email]" required="required" placeholder="email@centrale.centralelille.fr" class="form-control is-invalid" value="test@centrale.centralelille.fr" /></div><div class="form-group"><label for="user_pseudo">Pseudo (optionnel)<span class="invalid-feedback d-block"><span class="d-block"><span class="form-error-icon badge badge-danger text-uppercase">Erreur</span><span class="form-error-message">Cette valeur est déjà utilisée.</span></span></span></label><input type="text"             id="user_pseudo" name="user[pseudo]" placeholder="votre pseudo" class="form-control is-invalid" value="pseudo" /></div><div class="form-group"><label for="user_password" class="required">Mot de passe (min 6 caractères)</label><input type="password" id="user_password" name="user[password]" required="required" class="form-control" /></div><div class="form-group"><label for="user_confirm_password" class="required">Confirmation du mot de passe</label><input type="password" id="user_confirm_password" name="user[confirm_password]" required="required" class="form-control" /></div><input type="hidden" id="user__token" name="user[_token]" value="C1xw_HgtI1FcFntph2h68r6mcwDRXIx-0vITtyyJc2Q" /><button class="btn btn-success" type="submit">
-            S'inscrire
-        </button></form></div></div>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer">
-        <section class="footer__nav">
-            <ul>
-                <h2 class="title">Navigation </h2>
-
-                <li>
-                    <a href="/">Accueil</a>
-                </li>
-                                <li>
-                    <a href="#">Mentions Légales</a>
-                </li>
-            </ul>
-        </section>
-        <section class="footer__bde">
-            <p>BDE Centrale-Lille</p>
-            <img src="/build/images/logo.14f9da3e.jpg" alt="bde-logo" class="logo" style="width: 15%">
-            <p>2018~2019</p>
-        </section>
-        <section class="footer__contact">
-            <p>Ce site a été ralisé par <strong>Adrien Tiburce</strong>
-            </p>
-             <p>© Copyrigth - Absinthe </p>
-        </section>
-        </div>
-    </footer>
-        <script src="/build/runtime.fa8f03f5.js"></script><script src="/build/app.b0de0c4b.js"></script>
-    </body>
-
-</html>
-
-Time: 258 ms, Memory: 24.00MB
-
-There was 1 risky test:
+There was 1 error:
 
 1) App\Tests\RegisterTest::testSubmitRegisterForm
-This test did not perform any assertions
+Undefined variable: output
 
-[30;43mOK, but incomplete, skipped, or risky tests![0m
-[30;43mTests: 1[0m[30;43m, Assertions: 0[0m[30;43m, Risky: 1[0m[30;43m.[0m
+/Users/adrient/src/github.com/absinthe/tests/Register/RegisterTest.php:13
+
+[37;41mERRORS![0m
+[37;41mTests: 1[0m[37;41m, Assertions: 0[0m[37;41m, Errors: 1[0m[37;41m.[0m

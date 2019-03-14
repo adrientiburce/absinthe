@@ -19,7 +19,7 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
-    public function findWithCategory($category)
+    public function findCourseWithCategory($category)
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.courseCategory', 'category')

@@ -1,5 +1,5 @@
 easy_admin:
-    site_name: 'Administation des Cours'
+    site_name: "Admin d'Absinthe"
     design:
       menu:
               - { label: 'Accueil Publique', url: '/', icon: 'home'}

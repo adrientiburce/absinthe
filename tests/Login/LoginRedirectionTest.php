@@ -18,9 +18,11 @@ class LoginRedirectionTest extends WebTestCase
     public function testShouldRedirectToLoginPage()
     {
         $client = static::createClient();
-        $client->request('GET', '/cours-tronc-commun');
+        $crawler = $client->request('GET', '/');
 
-        $this->assertSame(302, $client->getResponse()->getStatusCode());
+        $link = $crawler->selectLink('Connexion')->link();
+        $crawler = $client->click($link);
+        $this->assertContains('Entrez vos identifiants', $crawler->filter('h1')->text());
     }
 
     public function testShouldRedirectAfterLogOut()

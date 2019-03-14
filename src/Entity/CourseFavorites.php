@@ -60,4 +60,5 @@ class CourseFavorites
     {
         return $this->course->getName();
     }
+
 }

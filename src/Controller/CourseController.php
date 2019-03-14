@@ -34,7 +34,6 @@ class CourseController extends AbstractController
         $courses = $this->getDoctrine()
             ->getRepository(Course::class)
             ->findAll();
-
         return $this->render('course/index.html.twig', [
             // We pass an array as props
             'props' => $serializer->serialize(['courses' => $courses], 'json'),

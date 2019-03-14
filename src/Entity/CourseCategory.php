@@ -119,4 +119,5 @@ class CourseCategory
     {
         return $this->name;
     }
+
 }

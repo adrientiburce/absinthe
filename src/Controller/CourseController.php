@@ -19,11 +19,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 class CourseController extends AbstractController
 {
-    private $repo;
+    private $courseRepository;
 
-    public function __construct(CourseRepository $repo)
+    public function __construct(CourseRepository $courseRepository)
     {
-        $this->repo = $repo;
+        $this->courseRepository = $courseRepository;
     }
     
     /**
@@ -41,10 +41,13 @@ class CourseController extends AbstractController
         ]);
     }
 
-    public function generateCategory($category)
+    /**
+     * fetch courses from repository with category 
+     */
+    public function generateCoursesCategory(string $category)
     {
-        $repo = $this->repo;
-        $courses = $repo->findWithCategory($category);
+        $courseRepository = $this->courseRepository;
+        $courses = $courseRepository->findCourseWithCategory($category);
         $serializer = $this->get('serializer');
         return $this->render('course/index.html.twig', [
             // We pass an array as props
@@ -57,7 +60,7 @@ class CourseController extends AbstractController
      */
     public function getCourse_tronc()
     {
-        return $this->generateCategory('Tronc Commun');
+        return $this->generateCoursesCategory('Tronc Commun');
     }
 
     /**
@@ -65,7 +68,7 @@ class CourseController extends AbstractController
      */
     public function getCourse_integration()
     {
-        return $this->generateCategory("Electifs d'Integration");
+        return $this->generateCoursesCategory("Electifs d'Integration");
     }
 
     /**
@@ -73,7 +76,7 @@ class CourseController extends AbstractController
      */
     public function getCourse_disciplinaires()
     {
-        return $this->generateCategory("Electifs Disciplinaires");
+        return $this->generateCoursesCategory("Electifs Disciplinaires");
     }
 
     /**

@@ -6,67 +6,106 @@
     <!-- color for url tab on mobile -->
     <meta name="theme-color" content="#D3D3D3">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Absinthe{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% block title %}<title>Absinthe</title>{% endblock %}
     {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
     {% endblock %}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
 </head>
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo01"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="{{path('home')}}">Absinthe</a>
-        <div class="collapse navbar-collapse" id="navbarToggler">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                {% if app.user %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Cours
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item disabled text-secondary" href="#">G1</a>
-                        <a class="dropdown-item" href="{{path('course_tronc')}}">Tronc Commun</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{path('course_disciplinaires')}}">Electifs Disciplinaires</a>
-                        <a class="dropdown-item" href="{{path('course_integration')}}">Electifs d'intégration</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Mes Documents</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('app_logout')}}" style="color:red;">Déconnexion </a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('app_login')}}" style="color:cyan;">Connexion </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('register')}}">Inscription </a>
-                </li>
-                {% endif %}
-            </ul>
-            {% if app.user %}
-            <span class="navbar-text">
-                Bonjour {{ app.user.pseudo ? app.user.pseudo : app.user.email }} - <a href="{{ path('home_login') }}"
-                    class=""> Mon Compte</a>
-            </span>
-            {% endif %}
-            {# <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Recherche</button>
-            </form> #}
-        </div>
-    </nav>
-</header>
 
 <body>
-    {% block body %}{% endblock %}
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="{{path('home')}}">Absinthe</a>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Cours
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item disabled text-secondary" href="#">G1</a>
+                            <a class="dropdown-item" href="{{path('course_tronc')}}">Tronc Commun</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{path('course_disciplinaires')}}">Electifs Disciplinaires</a>
+                            <a class="dropdown-item" href="{{path('course_integration')}}">Electifs d'Intégration</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Mes Cours</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav__logout" href="{{path('app_logout')}}">Déconnexion </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_login')}}" style="color:cyan;">Connexion </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('register')}}">Inscription </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% if app.user %}
+                <span class="navbar-text">
+                    Bonjour {{ app.user.pseudo ? app.user.pseudo : app.user.email }} - <a href="{{ path('home_login') }}"
+                        class=""> Mon Compte</a>
+                </span>
+                {% endif %}
+                {# <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Recherche</button>
+                </form> #}
+            </div>
+        </nav>
+    </header>
 
+    <div class="main-container">
+        <div class="container">
+            <div id="react-container">{% spaceless %}{% block body %}{% endblock %}{% endspaceless%}</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer">
+        <section class="footer__nav">
+            <ul>
+                <h2 class="title">Navigation </h2>
+
+                <li>
+                    <a href="{{path('home')}}">Accueil</a>
+                </li>
+                {% if app.user %}
+                <li>
+                    <a href="{{path('home')}}">Mes Cours</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="#">Mentions Légales</a>
+                </li>
+            </ul>
+        </section>
+        <section class="footer__bde">
+            <p>BDE Centrale-Lille</p>
+            <img src="{{asset('build/images/logo.jpg')}}" alt="bde-logo" class="logo" style="width: 15%">
+            <p>2018~2019</p>
+        </section>
+        <section class="footer__contact">
+            <p>Ce site a été ralisé par <strong>Adrien Tiburce</strong>
+            </p>
+             <p>© Copyrigth - Absinthe </p>
+        </section>
+        </div>
+    </footer>
     {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
     {% endblock %}

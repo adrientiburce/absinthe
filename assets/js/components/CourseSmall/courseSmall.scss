@@ -1,0 +1,25 @@
+@import "../../../css/_variable.scss";
+
+.card-course__header {
+    margin: 5px 0 10px;
+    display: flex;
+    justify-content: space-around;
+
+    &__title {
+        text-align: center;
+        color: $blue-title;
+    }
+
+    &__button {
+        border: 2px solid $blue-title;
+        margin: 5px 0;
+        padding: 5px;
+        font-style: 12px;
+        transition: all .4s ease-in-out;
+
+        &:hover {
+            border: 2px solid rgb(50, 100, 146);
+            background-color: rgb(178, 195, 231);
+        }
+    }
+}

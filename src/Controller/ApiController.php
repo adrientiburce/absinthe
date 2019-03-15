@@ -4,14 +4,15 @@ namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Course;
 
-class ApiController extends Controller
+class ApiController extends AbstractController
 {
     /**
-     * @Route("/api/courses", name="api_courses")
+     * @Route("/api/cours", name="api_courses")
      *
      * Needed for client-side navigation after initial page load
      */
@@ -27,17 +28,21 @@ class ApiController extends Controller
     }
 
     /**
-     * @Route("/api/course/{id}", name="api_course")
+     * @Route("/api/cours/{id}", name="api_course", requirements={"id"="\d+"})
      *
      * Needed for client-side navigation after initial page load
      */
-    public function apiRecipeAction($id, Request $request)
+    public function apiCourseAction($id, Request $request)
     {
+        $serializer = $this->get('serializer');
         $course = $this->getDoctrine()
             ->getRepository(Course::class)
             ->find($id);
-        $serializer = $this->get('serializer');
-
-        return new JsonResponse($serializer->normalize($course));
+        $isLikedByUser = $course->isLikedByUser($this->getUser());
+        
+        return new JsonResponse([
+            'course'=>$serializer->normalize($course),
+            'isLikedByUser' => $isLikedByUser
+        ]);
     }
 }

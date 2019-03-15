@@ -1,0 +1,11 @@
+# security:
+#     providers:
+#         in_memory:
+#             memory:
+#                 users:
+#                     admin: { password: admin, roles: ['ROLE_ADMIN'] }
+
+#     firewalls:
+#         # replace 'main' by the name of your own firewall
+#         main:
+#             http_basic: ~

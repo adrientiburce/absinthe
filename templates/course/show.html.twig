@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
-{#
-{% set recipes = react_component_array('Course', {'props': props}) %} #}
-{% block title %}Absinthe - Cours{% endblock %}
+
+{% set courses = react_component_array('MyCourse', {'props': props}) %}
+{% block title %}
+{{ courses.title is defined ? courses.title | raw : '' }}
+{% endblock title %}
 
 {% block body %}
-{{ react_component('Course', {'props': props}) }}
+{{ courses.componentHtml | raw }}
 {% endblock %}
 
-{# {% block javascripts %}
-{{ parent() }}
-{{ encore_entry_script_tags('app') }}
-{% endblock %} #}
+

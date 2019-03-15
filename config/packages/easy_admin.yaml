@@ -1,0 +1,78 @@
+easy_admin:
+    site_name: "Admin d'Absinthe"
+    design:
+      menu:
+              - { label: 'Accueil Publique', url: '/', icon: 'home'}
+              - label: 'Cours'
+                children:
+                    - {entity: 'Course', icon: 'pencil'}
+                    - {entity: 'Category', icon: 'inbox', default: true}
+                    - {entity: 'Labels', icon: 'tags'}
+              - {entity: 'Users', icon: 'users'}
+    user:
+        name_property_path: 'email'
+    list: 
+        title: 'Liste des %%entity_label%%'
+    entities:
+      Course:
+          class: App\Entity\Course
+          label: 'Cours'
+          list: 
+                fields: 
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'courseCategory', label: 'Catégorie'}
+                    - labels
+                actions:
+                    - {name: 'new', label: 'Créer un Cours'}
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-sm btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+          form:
+              fields:
+                  - {property: 'name', label: 'Nom'}
+                  - {property: 'description',label: 'Description'}
+                  - {property: 'duration',label: 'Durée (mois)'}
+                  - {property: 'courseCategory', label: 'Catégorie'}
+                  - {property: 'labels', label: 'Labels'}
+
+      Category:
+          class: App\Entity\CourseCategory
+          label: 'Catégorie de cours'
+          disabled_actions: ['delete']
+          list: 
+                title: 'Liste des %%entity_label%%'
+                disabled_actions: ['delete']
+                actions:
+                    - {name: '-search'}
+                    - {name: 'new', label: 'Créer une Catégorie'}
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-sm btn-primary'}
+          edit:
+                title: 'Modifier la catégorie %%entity_id%%'     
+          form:
+              fields:
+                  - {property: 'semester',label: 'Semestre'}
+                  - {property: 'promotion', label: 'Promotion'}
+
+      Labels:
+          class: App\Entity\LabelCourse
+          label: 'Labels'
+          list: 
+                actions:
+                    - {name: 'new', label: 'Créer un Label'}
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-sm btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+          form:
+            fields: 
+                  - {property: 'name', label: 'Nom'}
+
+      Users:
+            class: App\Entity\User
+            label: 'Utilisateurs'
+            disabled_actions: ['new', 'edit']
+            list:
+                help: 'Vous pouvez ici supprimer des utilisateurs '
+                fields: 
+                    - email
+                    - pseudo
+                    - { property: 'created_at', format: 'j/n/Y' }
+                actions:
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}

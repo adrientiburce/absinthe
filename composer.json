@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.6",
+        "easycorp/easyadmin-bundle": "^2.1",
         "fzaninotto/faker": "^1.8",
         "limenius/react-bundle": "^3.0",
         "sensio/framework-extra-bundle": "^5.2",

@@ -189,4 +189,12 @@ class Course implements \JsonSerializable
 
         return $this;
     }
+
+    /**
+     * needed for easy_admin in form rendering
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

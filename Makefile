@@ -17,7 +17,7 @@ deploy: .env.prod .git
 	case $$yn in \
 		[oO])  echo -e "\n$(COM_COLOR)Transfert du dépôt local vers le serveur...$(NO_COLOR)"; \
 			echo -e "rsync -rlPv -e "ssh -p $(SSH_PORT)" --delete --exclude-from .rsyncignore . $(SSH_USER)@51.75.246.250:$(SITE_PATH)"; \
-			rsync -rlPq -e "ssh -p $(SSH_PORT)" \
+			rsync -rlPv -e "ssh -p $(SSH_PORT)" \
 			--exclude .git \
 			--exclude .gitignore \
 			--exclude Makefile \

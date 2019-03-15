@@ -9,6 +9,8 @@ Encore
   .cleanupOutputBeforeBuild()
   // enable react in babel
   .enableReactPreset()
+  // ename sass
+  .enableSassLoader()
   // so we don't need to deal with runtime.js
   .disableSingleRuntimeChunk()
   // will output as app/Resources/webpack/server-bundle.js

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Course;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CourseFavoritesRepository")
@@ -53,5 +54,10 @@ class CourseFavorites
         $this->user = $user;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->course->getName();
     }
 }

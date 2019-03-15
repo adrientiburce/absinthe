@@ -2,26 +2,17 @@
 PHPUnit 6.5.14 by Sebastian Bergmann and contributors.
 
 Testing Project Test Suite
-[33;1mR[0m                                                                   1 / 1 (100%)HTTP/1.1 200 OK
-Cache-Control: max-age=0, must-revalidate, private
-Content-Type:  application/json
-Date:          Sun, 10 Mar 2019 18:40:17 GMT
-Set-Cookie:    MOCKSESSID=78081caff5b501e0a4eb5912a5494f024581d2101eb197505b7707758ca7257e; path=/; secure; httponly; samesite=lax
+[31;1mE[0m                                                                   1 / 1 (100%)
 
-{"course":{"id":1,"name":"Marty","description":"M. L\u00e9on. Elle e\u00fbt bien voulu, ne f\u00fbt-ce au moins pour lui, de volupt\u00e9s pour.","category":"Tronc Commun","semester":"S5","promotion":"G1"},"isLikedByUser":false}
+Time: 160 ms, Memory: 18.00MB
 
-Time: 249 ms, Memory: 22.00MB
+There was 1 error:
 
-There was 1 risky test:
+1) App\Tests\Login\LoginTest::testShouldLogUserAndRedirectToHomePage
+InvalidArgumentException: The current node list is empty.
 
-1) App\Tests\Login\ApiTest::testApiRouteShowAllCourses
-This test did not perform any assertions
+/Users/adrient/src/github.com/absinthe/vendor/symfony/dom-crawler/Crawler.php:856
+/Users/adrient/src/github.com/absinthe/tests/Login/LoginTest.php:26
 
-[30;43mOK, but incomplete, skipped, or risky tests![0m
-[30;43mTests: 1[0m[30;43m, Assertions: 0[0m[30;43m, Risky: 1[0m[30;43m.[0m
-
-Remaining deprecation notices (1)
-
-  1x: The "Sensio\Bundle\FrameworkExtraBundle\Configuration\Route" annotation is deprecated since version 5.2. Use "Symfony\Component\Routing\Annotation\Route" instead.
-    1x in ApiTest::testApiRouteShowAllCourses from App\Tests\Login
-
+[37;41mERRORS![0m
+[37;41mTests: 1[0m[37;41m, Assertions: 0[0m[37;41m, Errors: 1[0m[37;41m.[0m

@@ -17,16 +17,15 @@
         <tr>
             <th>Email</th>
             <td> {{app.user.email}}</td>
-            <td>Modifier</td>
-        </tr>
-        <tr>
-            <th colspan="2">Mot de Passe </th>
-            <td>Modifier</td>
+            <td colspan="2"><button>Modifier</button></td>
         </tr>
         <tr>
             <th>Pseudo</th>
             <td>{{app.user.pseudo|default('pseudo non renseigné')}}</td>
-            <td>Modifier</td>
+        </tr>
+        <tr>
+            <th colspan="2">Mot de Passe </th>
+            <td><button>Modifier</button></td>
         </tr>
     </tbody>
 </table>

@@ -24,23 +24,26 @@ class LoginTest extends WebTestCase
     public function testShouldLogUserAndRedirectToHomePage()
     {
         $form = $this->crawler->selectButton('Connexion')->form();
-        $form['email'] = 'admin@demo.fr';
-        $form['password'] = 'admin';
+        $form['email'] = 'admin@centrale.centralelille.fr';
+        $form['password'] = 'testons';
         $crawler = $this->client->submit($form);
-
         $this->assertContains('Accueil', $crawler->filter('h1')->text());
         $this->assertSame(1, $crawler->filter('#nav__logout')->count());
     }
-
+    
     public function testWithFalseCredentials()
     {
         $form = $this->crawler->selectButton('Connexion')->form();
         $form['email'] = 'admin@demo.fr';
         $form['password'] = 'a_wrong_password';
         $crawler = $this->client->submit($form);
-
-        $this->assertContains('Entrez', $crawler->filter('h1')->text());
+        $this->assertContains('Entrez vos identifiants', $crawler->filter('h1')->text());
         $this->assertSame(1, $crawler->filter('div.alert.alert-danger')->count());
     }
     
+    public function tearDown()
+    {
+        $this->client = null;
+        $this->crawler = null;
+    }
 }

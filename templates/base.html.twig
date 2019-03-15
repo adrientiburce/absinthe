@@ -33,16 +33,20 @@
                             Cours
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item disabled text-secondary" href="#">G1</a>
                             <a class="dropdown-item" href="{{path('course_tronc')}}">Tronc Commun</a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{path('course_disciplinaires')}}">Electifs Disciplinaires</a>
                             <a class="dropdown-item" href="{{path('course_integration')}}">Electifs d'Intégration</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Mes Cours</a>
+                        <a class="nav-link" href="{{path('my_courses')}}">Mes Cours</a>
                     </li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('easyadmin')}}">Admin</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" id="nav__logout" href="{{path('app_logout')}}">Déconnexion </a>
                     </li>
@@ -61,10 +65,6 @@
                         class=""> Mon Compte</a>
                 </span>
                 {% endif %}
-                {# <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Recherche</button>
-                </form> #}
             </div>
         </nav>
     </header>
@@ -86,23 +86,23 @@
                 </li>
                 {% if app.user %}
                 <li>
-                    <a href="{{path('home')}}">Mes Cours</a>
+                    <a href="{{path('my_courses')}}">Mes Cours</a>
                 </li>
                 {% endif %}
                 <li>
-                    <a href="#">Mentions Légales</a>
+                    <a href="{{path('mentions')}}">Mentions Légales</a>
                 </li>
             </ul>
         </section>
         <section class="footer__bde">
             <p>BDE Centrale-Lille</p>
-            <img src="{{asset('build/images/logo.jpg')}}" alt="bde-logo" class="logo" style="width: 15%">
+            <img src="{{asset('build/images/logo.jpg')}}" alt="bde-logo" class="logo">
             <p>2018~2019</p>
         </section>
         <section class="footer__contact">
             <p>Ce site a été ralisé par <strong>Adrien Tiburce</strong>
             </p>
-             <p>© Copyrigth - Absinthe </p>
+             <p>© Copyright - Absinthe </p>
         </section>
         </div>
     </footer>

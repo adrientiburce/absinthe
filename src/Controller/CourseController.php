@@ -82,7 +82,7 @@ class CourseController extends AbstractController
     /**
      * @Route("/cours/{id}", name="course_show", requirements={"id"="\d+"})
      */
-    public function show($id, Request $request)
+    public function showCourse($id, Request $request)
     {
         $serializer = $this->get('serializer');
         $course = $this->getDoctrine()
@@ -120,5 +120,15 @@ class CourseController extends AbstractController
             $manager->persist($courseFavorite);
             $manager->flush();
         }
+    }
+
+    /**
+     * @Route("/cours-favoris", name="my_courses")
+     */
+    public function showFavoriteCourse()
+    {
+        return $this->render('course/myCourses.html.twig', [
+            // We pass an array as props
+        ]);
     }
 }

@@ -40,6 +40,7 @@ class UrlsTest extends WebTestCase
     public function getPrivateUrls()
     {
         return array(
+            ['/admin'],
             ['/cours-tronc-commun'],
             ['/cours-disciplinaires'],
             ['/cours-integration'],

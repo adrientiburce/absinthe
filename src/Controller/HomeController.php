@@ -13,7 +13,15 @@ class HomeController extends AbstractController
     public function index()
     {
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+        ]);
+    }
+
+    /**
+     * @Route("/mentions-legales", name="mentions")
+     */
+    public function showMentionsLegaes()
+    {
+        return $this->render('home/mentions.html.twig', [
         ]);
     }
 }

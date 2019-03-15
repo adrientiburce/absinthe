@@ -83,6 +83,30 @@ a:focus {
     }
 }
 
+.card-course__header {
+    margin: 5px 0 10px;
+    display: flex;
+    justify-content: space-around;
+
+    &__title {
+        text-align: center;
+        color: $blue-title;
+    }
+
+    &__button {
+        border: 2px solid $blue-title;
+        margin: 5px 0;
+        padding: 5px;
+        font-style: 12px;
+        transition: all .4s ease-in-out;
+
+        &:hover {
+            background-color: $blue-title;
+            color: white;
+        }
+    }
+}
+
 .footer {
     display: flex;
     justify-content: space-evenly;
@@ -111,14 +135,21 @@ a:focus {
     &__bde {
         .logo {
             border-radius: 100%;
+            width: 18%;
+            margin-bottom: 5px;
         }
     }
 
     &__nav {
         @at-root {
-            @media screen and (max-width: 640px) {
-                .footer__nav {
-                    display: none;
+            @media screen and (max-width: 800px) {
+                .footer{
+                    &__nav {
+                        display: none;
+                    }
+                    &__bde{
+                        .logo { width: 30%;}
+                    }
                 }
             }
         }

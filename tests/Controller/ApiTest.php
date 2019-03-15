@@ -3,6 +3,10 @@
 namespace App\Tests\Login;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Form\Type\TestedType;
+use App\Model\TestObject;
+use Symfony\Component\Form\Test\TypeTestCase;
+
 
 class ApiTest extends WebTestCase
 {
@@ -16,8 +20,8 @@ class ApiTest extends WebTestCase
         $this->crawler = $this->client->request('GET', '/login');
         $this->client->followRedirects();
         $form = $this->crawler->selectButton('Connexion')->form();
-        $form['email'] = 'admin@demo.fr';
-        $form['password'] = 'admin';
+        $form['email'] = 'admin@centrale.centralelille.fr';
+        $form['password'] = 'testons';
         $this->crawler = $this->client->submit($form);
     }
 

@@ -11,15 +11,12 @@ class CourseTest extends WebTestCase
 {
     private $client;
     private $crawler;
+
     public function setUp()
     {
         $this->client = static::createClient();
         $this->crawler = $this->client->request('GET', '/login');
         $this->client->followRedirects();
-        $form = $this->crawler->selectButton('Connexion')->form();
-        $form['email'] = 'admin@demo.fr';
-        $form['password'] = 'admin';
-        $this->crawler = $this->client->submit($form);
     }
 
     /**
@@ -27,7 +24,11 @@ class CourseTest extends WebTestCase
      */
     public function testShouldShowCourses($link_name, $result)
     {
-        $link = $this->crawler->selectLink($link_name)->link();
+        $form = $this->crawler->selectButton('Connexion')->form();
+        $form['email'] = 'admin@centrale.centralelille.fr';
+        $form['password'] = 'testons';
+        $crawler = $this->client->submit($form);
+        $link = $crawler->selectLink($link_name)->link();
         $crawler = $this->client->click($link);
         $this->assertContains($result, $crawler->filter('h1')->text());
     }
@@ -36,8 +37,8 @@ class CourseTest extends WebTestCase
     {
         return array(
             ['Tronc Commun', 'Cours :Tronc Commun'],
-            ['Electifs Disciplinaires', 'Cours :Electifs Disciplinaires'],
-            ["Electifs d'Intégration", "Cours :Electifs d'Integration"],
+            ['Electifs Disciplinaires', "Cours :Electifs Disciplinaires"],
+            // ["Electifs d'Intégration", "Cours :Electifs d'Integration"],
         );
     }
 

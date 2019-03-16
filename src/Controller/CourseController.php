@@ -27,21 +27,6 @@ class CourseController extends AbstractController
     }
     
     /**
-     * @Route("/cours", name="course_home")
-     */
-    public function homeAction(SerializerInterface $serializer)
-    {
-        $courses = $this->getDoctrine()
-            ->getRepository(Course::class)
-            ->findAll();
-
-        return $this->render('course/index.html.twig', [
-            // We pass an array as props
-            'props' => $serializer->serialize(['courses' => $courses], 'json'),
-        ]);
-    }
-
-    /**
      * fetch courses from repository with category 
      */
     public function generateCoursesCategory(string $category)
@@ -125,10 +110,18 @@ class CourseController extends AbstractController
     /**
      * @Route("/cours-favoris", name="my_courses")
      */
-    public function showFavoriteCourse()
+    public function showFavoriteCourse(SerializerInterface $serializer)
     {
+        $user = $this->getUser();
+        $userId = $user->getId();
+        $courses = $this->getDoctrine()
+            ->getRepository(Course::class)
+            ->findCoursesLikedByUser($userId);
+
+        $serializer = $this->get('serializer');
         return $this->render('course/myCourses.html.twig', [
             // We pass an array as props
+            'props' => $serializer->serialize(['courses' => $courses], 'json'),
         ]);
     }
 }

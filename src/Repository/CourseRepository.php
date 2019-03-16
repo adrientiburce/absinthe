@@ -32,19 +32,18 @@ class CourseRepository extends ServiceEntityRepository
     // /**
     //  * @return Course[] Returns an array of Course objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findCoursesLikedByUser($userId)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->leftJoin('c.courseFavorites', 'favorites')
+            ->andWhere('favorites.user = :user')
+            ->setParameter('user', $userId)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Course

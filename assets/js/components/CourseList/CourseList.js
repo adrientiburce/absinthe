@@ -6,7 +6,7 @@ import './courseList.scss';
 const CourseList = props => (
   <div>
     <h1 className="courses-title">
-        Cours : {props.courses[0].category}
+        {props.title}
     </h1>
     <div className="block-courses">
       {props.courses.map((course, idx) => (

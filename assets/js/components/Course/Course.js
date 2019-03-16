@@ -47,9 +47,17 @@ class Course extends Component {
         </div>
         <div className="card__legend">
           <p className="card-course__legend">{this.props.course.description}</p>
-          <button className="course__btn" title="Semestre">{this.props.course.semester}</button>
-          <button className="course__btn" title="Promotion">{this.props.course.promotion}</button>
-          <button className="course__btn course__btn--matiere" title="Département">Physique</button>
+          <div className="card-lable">
+          <div className="lable__category">
+            <button className="course__btn" title="Semestre">{this.props.course.semester}</button>
+            <button className="course__btn" title="Promotion">{this.props.course.promotion}</button>
+          </div>
+          <div className="lable__field">
+          {this.props.course.labels.map((label, idx) => (
+            <button className="course__btn course__btn--matiere" title="Département">{label}</button>
+          ))}
+          </div>
+          </div>
         </div>
       </div>
     );

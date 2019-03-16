@@ -110,13 +110,18 @@ class Course implements \JsonSerializable
 
     public function jsonSerialize()
     {
+        $arrayLabels = [];
+        foreach($this->labels as $label){
+            $arrayLabels[] = $label->getName();
+        }
         return array(
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'category' => $this->courseCategory->getName(),
             'semester' => $this->courseCategory->getSemester(),
-            'promotion' => $this->courseCategory->getPromotion()
+            'promotion' => $this->courseCategory->getPromotion(),
+            'labels' => $arrayLabels,
         );
     }
 

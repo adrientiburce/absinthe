@@ -52,12 +52,16 @@
     &--matiere {
         border: 2px solid $green-hell;
         background-color: $green-btn;
-        position: absolute;
-        right: 5px;
 
         &:hover {
             background-color: $green-hell;
         }
     }
 
+}
+
+.card-lable{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
 }

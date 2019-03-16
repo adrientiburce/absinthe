@@ -57,3 +57,10 @@ class CourseFixtures extends Fixture
         $manager->flush();
     }
 }
+// SOR	Sociologie des organisations-
+// TSI	Traitement du signal	
+// CMO	Complexité - Modélisation	
+// AAP	Algorithmique avancée et programmation
+// AIN	Analyse pour l'ingénieur
+// MMC	Mécanique de milieux continus
+// PMO	Physique moderne

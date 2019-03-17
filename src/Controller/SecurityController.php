@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\ChangePasswordType;
 use App\Form\Model\ChangePassword;
+use App\Repository\CourseDocumentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +47,6 @@ class SecurityController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setCreatedAt(new \DateTime());
@@ -67,56 +67,6 @@ class SecurityController extends AbstractController
 
         ]);
     }
-    /**
-     * @Route("/mon-compte", name="home_profile")
-     * @IsGranted("ROLE_USER");
-     */
-    public function home_profile(Request $request, UserPasswordEncoderInterface $encoder)
-    {
-        $userPassword = new ChangePassword();
-        $objectManager = $this->objectManager;
-        
-        $formPassword=$this->createForm(ChangePasswordType::class, $userPassword);
-        $formPassword->handleRequest($request);
-        $user = $this->getUser();
-        if($formPassword->isSubmitted() && $formPassword->isValid()){
-            $this->addFlash('success', 'Mot de Passe mis à jour avec succès');
-            $hash = $encoder->encodePassword(
-                    $user,
-                    $userPassword->getPassword());
-            $user->setPassword($hash);
-            $objectManager->flush();
-            return $this->redirectToRoute('home_profile');
-        }
-        else if($formPassword->isSubmitted()){
-            $this->addFlash('danger', 'Un problème est survenu');
-            return $this->redirectToRoute('home_profile');
-        }
-
-
-        $formProfile = $this->createForm(UserType::class, $user);
-        $formProfile->remove('email');
-        $formProfile->remove('password');
-        $formProfile->remove('confirm_password');
-
-        $formProfile->handleRequest($request);
-        if($formProfile->isSubmitted() && $formProfile->isValid()){
-            $this->addFlash('success', 'Profil mis à jour avec succès');
-            $user->setPseudo($user->getPseudo());
-            $objectManager->flush();
-            return $this->redirectToRoute('home');
-        }
-        else if($formProfile->isSubmitted()){
-            $this->addFlash('danger', 'Un problème est survenu');
-            return $this->redirectToRoute('home_profile');
-        }
-        return $this->render('security/home.html.twig',[
-            'formPassword' => $formPassword->createView(),
-            'formProfile' => $formProfile->createView(),
-        ]);
-    }
-
-
 
     /**
      * @Route("/logout", name="app_logout")

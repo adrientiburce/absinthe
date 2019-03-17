@@ -67,9 +67,15 @@ class User implements UserInterface
      */
     private $favoritesCourses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CourseDocument", mappedBy="author")
+     */
+    private $courseDocuments;
+
     public function __construct()
     {
         $this->favoritesCourses = new ArrayCollection();
+        $this->courseDocuments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -228,5 +234,41 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|CourseDocument[]
+     */
+    public function getCourseDocuments(): Collection
+    {
+        return $this->courseDocuments;
+    }
+
+    public function addCourseDocument(CourseDocument $courseDocument): self
+    {
+        if (!$this->courseDocuments->contains($courseDocument)) {
+            $this->courseDocuments[] = $courseDocument;
+            $courseDocument->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourseDocument(CourseDocument $courseDocument): self
+    {
+        if ($this->courseDocuments->contains($courseDocument)) {
+            $this->courseDocuments->removeElement($courseDocument);
+            // set the owning side to null (unless already changed)
+            if ($courseDocument->getAuthor() === $this) {
+                $courseDocument->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->email;
     }
 }

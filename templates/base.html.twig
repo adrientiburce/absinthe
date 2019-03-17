@@ -14,6 +14,9 @@
     {% endblock %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
         crossorigin="anonymous">
+    {% block js %}
+        
+    {% endblock %}
 </head>
 
 <body>
@@ -62,23 +65,17 @@
                 {% if app.user %}
                 <span class="navbar-text">
                     Bonjour {{ app.user.pseudo ? app.user.pseudo : app.user.email }} - <a href="{{ path('home_profile') }}"
-                        class=""> Mon Compte</a>
+                        class="link-underline"> Mon Compte</a>&nbsp;
                 </span>
                 {% endif %}
             </div>
         </nav>
     </header>
-        <div class="container">
+        <div class="container mt-2">
         {% for success_message in app.flashes('success') %}
         <div class="alert alert-success alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Opération réussie!</strong> {{success_message}}
-        </div>
-        {% endfor %}
-        {% for info_message in app.flashes('info') %}
-        <div class="alert alert-info alert-dismissible">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Info!</strong> {{info_message}}
         </div>
         {% endfor %}
         {% for warning_message in app.flashes('warning') %}
@@ -99,7 +96,7 @@
             <div id="react-container">{% spaceless %}{% block body %}{% endblock %}{% endspaceless%}</div>
         </div>
     </div>
-    {% block doc %}{% endblock %}
+
     <footer>
         <div class="footer">
         <section class="footer__nav">

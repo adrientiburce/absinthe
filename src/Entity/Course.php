@@ -49,10 +49,16 @@ class Course implements \JsonSerializable
      */
     private $labels;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CourseDocument", mappedBy="course")
+     */
+    private $documents;
+
     public function __construct()
     {
         $this->courseFavorites = new ArrayCollection();
         $this->labels = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +120,15 @@ class Course implements \JsonSerializable
         foreach($this->labels as $label){
             $arrayLabels[] = $label->getName();
         }
+        $arrayFiles = [];
+        foreach($this->documents as $document){
+            $arrayFiles[] = [
+                "name" => $document->getName(),
+                "author" => $document->getAuthor()->getEmail(),
+                "date" => $document->getUpdatedAt()];
+            // $arrayFiles[] = $document->getName();
+        }
+
         return array(
             'id' => $this->id,
             'name' => $this->name,
@@ -122,6 +137,7 @@ class Course implements \JsonSerializable
             'semester' => $this->courseCategory->getSemester(),
             'promotion' => $this->courseCategory->getPromotion(),
             'labels' => $arrayLabels,
+            'documents' => $arrayFiles,
         );
     }
 
@@ -201,5 +217,36 @@ class Course implements \JsonSerializable
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|CourseDocument[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(CourseDocument $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(CourseDocument $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getCourse() === $this) {
+                $document->setCourse(null);
+            }
+        }
+
+        return $this;
     }
 }

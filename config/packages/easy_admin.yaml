@@ -1,5 +1,6 @@
 easy_admin:
     site_name: "Admin d'Absinthe"
+    disabled_actions: ['show']
     design:
       menu:
               - { label: 'Accueil Publique', url: '/', icon: 'home'}
@@ -8,6 +9,7 @@ easy_admin:
                     - {entity: 'Course', icon: 'pencil'}
                     - {entity: 'Category', icon: 'inbox', default: true}
                     - {entity: 'Labels', icon: 'tags'}
+                    - {entity: 'Documents', icon: 'file'}
               - {entity: 'Users', icon: 'users'}
     user:
         name_property_path: 'email'
@@ -63,7 +65,6 @@ easy_admin:
           form:
             fields: 
                   - {property: 'name', label: 'Nom'}
-
       Users:
             class: App\Entity\User
             label: 'Utilisateurs'
@@ -73,6 +74,19 @@ easy_admin:
                 fields: 
                     - email
                     - pseudo
-                    - { property: 'created_at', format: 'j/n/Y' }
+                    - { property: 'created_at', label: 'Compte crée le', format: 'j/n/Y' }
                 actions:
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+      Documents:
+                class: App\Entity\CourseDocument
+                label: 'Documents'
+                disabled_actions: ['new', 'edit']
+                list:
+                    help: 'Vous pouvez ici supprimer des documents inadaptés'
+                    fields: 
+                        - name
+                        - { property: 'author', label: 'Auteur' }
+                        - { property: 'course', label: 'Cours' }
+                        - { property: 'updatedAt', label: 'Ajouté le' }
+                    actions:
+                        - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}

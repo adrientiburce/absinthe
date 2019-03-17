@@ -7,12 +7,6 @@
     <h2>Mon Compte</h2>
     <h4 class="text-right text-secondary">Compte crée le {{ app.user.createdAt|date("d/m/Y") }}</h4>
     <table class="table table-hover">
-        <thead>
-            <tr>
-                <th colspan="2">Champ</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
         <tbody>
             <tr>
                 <th>Email</th>
@@ -23,9 +17,9 @@
                 <td>{{app.user.pseudo|default('non renseigné')}}</td>
             </tr>
             <tr>
-                <th colspan="2">Mot de Passe </th>
+                <th>Mot de Passe </th>
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formProfile">
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#formProfile">
                         Modifier
                     </button>
                 </td>
@@ -33,8 +27,35 @@
         </tbody>
     </table>
 
+    <table class="table table-hover mt-2">
+        <h2>Mes Documents</h2>
+        <thead>
+            <tr>
+                <th>Document</th>
+                <th>Cours</th>
+                <th>Date d'upload</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in documents %}
+            <tr>
+                <td>{{document.name}}</td>
+                <td><a href="{{path('course_show', {'id': document.course.id})}}" class="link-course" title="Voir le cours">{{document.course.name}}</a></td>
+                <td>{{document.updatedAt|date("d/m/Y") }}</td>
+                <td>
+                        <form method="post" action="{{path('document_delete', {'id': document.id})}}" style="display: inline-block"; onsubmit=" return confirm('Etes-vous vraiment sur ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id)}}">
+                            <button class="btn btn-outline-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
     <div class="modal fade" id="formProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-focus="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -46,27 +67,36 @@
                 <div class="modal-body">
                     {{form_start(formPassword)}}
                     {{form_rest(formPassword)}}
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    <button type="submit" class="btn btn-success" id="envoyer" class="btn btn-md btn-kitn" name="Envoyer" value="Enregistrer">Enregistrer</button>
+                    <button type="submit" class="btn btn-success" id="envoyer" class="btn btn-md btn-kitn" name="Envoyer"
+                        value="Enregistrer">Enregistrer</button>
                 </div>
                 {{form_end(formPassword)}}
 
             </div>
         </div>
-    </div>
+    </div> 
 
-    {# </hr>
-    {{form_start(formProfile)}}
+    </hr>
+    {# {{form_start(formProfile)}}
     {{form_rest(formProfile)}}
     <div class="text-right">
         <input type="submit" id="envoyer" class="btn btn-md btn-kitn" name="Envoyer" value="Enregistrer"></input>
     </div>
-    {{form_end(formProfile)}} #}
+    {{form_end(formProfile)}}  #}
 
 
 </div>
 {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{# <script>
+$(window).on('load',function(){
+        $('#formProfile').modal('show');
+    });
+</script> #}
+{% endblock %}
+

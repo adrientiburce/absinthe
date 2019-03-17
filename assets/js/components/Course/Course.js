@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CourseDocument from './CourseDocument';
 import './course.scss';
 
 class Course extends Component {
@@ -33,7 +34,8 @@ class Course extends Component {
 
   render() {
     return (
-      <div className="card-course">
+      <div>
+      <div className="card-course" key="1">
         <p className="text-success">{this.state.message}</p>
         <div className="card-course__header">
           <h1 className="header__title">
@@ -48,18 +50,26 @@ class Course extends Component {
         <div className="card__legend">
           <p className="card-course__legend">{this.props.course.description}</p>
           <div className="card-lable">
-          <div className="lable__category">
-            <button className="course__btn" title="Semestre">{this.props.course.semester}</button>
-            <button className="course__btn" title="Promotion">{this.props.course.promotion}</button>
-          </div>
-          <div className="lable__field">
-          {this.props.course.labels.map((label, idx) => (
-            <button className="course__btn course__btn--matiere" title="Département">{label}</button>
-          ))}
-          </div>
+            <div className="lable__category">
+              <button className="course__btn" title="Semestre">{this.props.course.semester}</button>
+              <button className="course__btn" title="Promotion">{this.props.course.promotion}</button>
+            </div>
+            <div className="lable__field">
+            {this.props.course.labels.map((label, idx) => (
+              <button className="course__btn course__btn--matiere" title="Département">{label}</button>
+            ))}
+            </div>
           </div>
         </div>
       </div>
+      <div className="card-course" key="2">
+        <h1 className="header__title">Documents</h1>
+
+        <CourseDocument course={this.props.course} base={this.props.base}/> 
+        <a className="card-document__upload" href={`${this.props.base}/upload`}>Uploader un document</a>
+      </div>
+
+    </div>
     );
   }
 }

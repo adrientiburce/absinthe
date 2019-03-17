@@ -9,6 +9,9 @@ Encore
   .cleanupOutputBeforeBuild()
   // will output as web/build/app.js
   .addEntry('app', './assets/js/clientSideEntryPoint.js')
+
+  .addEntry('browse', './assets/js/browse.js')
+
   // allow sass/scss files to be processed
   .enableSassLoader()
   // enable react in babel

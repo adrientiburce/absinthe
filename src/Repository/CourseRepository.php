@@ -19,12 +19,20 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
+    public function findAll()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.name', 'ASC')
+        ;
+    }
+
     public function findCourseWithCategory($category)
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.courseCategory', 'category')
             ->andWhere('category.name = :category')
             ->setParameter('category', $category)
+            ->orderBy('c.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;

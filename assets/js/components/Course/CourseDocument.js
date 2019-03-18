@@ -18,7 +18,8 @@ class CourseDocument extends Component {
       {this.props.course.documents.map((document, idx) => (
         <tr key={idx}>
           <td>
-            <a href={`${this.props.base}/course/document/${document["name"]}`} className="link-upload" download={`${document["name"]}`} title="Télécharger"> {document["name"]}</a>
+            <a href={`${this.props.base}/course/document/${document["name"]}`} className="link-upload" download={`${document["name"]}`} title="Télécharger"> {document["name"]}</a> &nbsp; 
+            <span className="document--btn">{document["label"]}</span>
           </td> 
           <td>
             <span>{document["author"]}</span>

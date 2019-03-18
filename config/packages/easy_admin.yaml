@@ -6,10 +6,13 @@ easy_admin:
               - { label: 'Accueil Publique', url: '/', icon: 'home'}
               - label: 'Cours'
                 children:
-                    - {entity: 'Course', icon: 'pencil'}
-                    - {entity: 'Category', icon: 'inbox', default: true}
-                    - {entity: 'Labels', icon: 'tags'}
+                    - {entity: 'Course', icon: 'pencil', default: true}
+                    - {entity: 'Category', icon: 'inbox'}
+                    - {entity: 'LabelCourse', icon: 'tags'}
+              - label: 'Documents'
+                children:
                     - {entity: 'Documents', icon: 'file'}
+                    - {entity: 'LabelDocument', icon: 'tags'}
               - {entity: 'Users', icon: 'users'}
     user:
         name_property_path: 'email'
@@ -22,6 +25,7 @@ easy_admin:
           list: 
                 fields: 
                     - {property: 'name', label: 'Nom'}
+                    - {property: 'createdAt',label: 'Ajouté le'}
                     - {property: 'courseCategory', label: 'Catégorie'}
                     - labels
                 actions:
@@ -38,7 +42,7 @@ easy_admin:
 
       Category:
           class: App\Entity\CourseCategory
-          label: 'Catégorie de cours'
+          label: 'Catégories'
           disabled_actions: ['delete']
           list: 
                 title: 'Liste des %%entity_label%%'
@@ -54,7 +58,7 @@ easy_admin:
                   - {property: 'semester',label: 'Semestre'}
                   - {property: 'promotion', label: 'Promotion'}
 
-      Labels:
+      LabelCourse:
           class: App\Entity\LabelCourse
           label: 'Labels'
           list: 
@@ -90,3 +94,14 @@ easy_admin:
                         - { property: 'updatedAt', label: 'Ajouté le' }
                     actions:
                         - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+      LabelDocument:
+          class: App\Entity\LabelDocument
+          label: 'Labels'
+          list: 
+                actions:
+                    - {name: 'new', label: 'Créer un Label'}
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-sm btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+          form:
+            fields: 
+                  - {property: 'name', label: 'Nom'}

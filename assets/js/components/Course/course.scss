@@ -57,7 +57,6 @@
             background-color: $green-hell;
         }
     }
-
 }
 
 .card-lable{
@@ -78,15 +77,27 @@ table.full-width{
     font-style: 12px;
     transition: all .4s ease-in-out;
     &:hover {
-        border: 2px solid $blue-dark;
-        color: rgb(90, 90, 90);
+        border: 2px solid grey;
+        color: $blue-dark;
     }
 }
 
 .link-upload{
     display: inline-block;
     transition: all .5s ease;
+
     &:hover{
         transform: scale(1.05);
     }
+}
+.document--btn {
+    padding: 2px 15px;
+    margin-right: 20px;
+    border-radius: 24px;
+    border: 2px solid $green-hell;
+    background-color: $green-hell;
+    color: white;
+    font-size: 15px;
+    transition: all .5s ease;
+    cursor: default !important;
 }

@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Course;
+use App\Entity\LabelDocument;
 use App\Entity\CourseDocument;
+use App\Repository\CourseRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,6 +24,9 @@ class DocumentFormType extends AbstractType
                 'group_by' => function(Course $choiceValue) {
                     return $choiceValue->getCourseCategory();
                 },
+                'query_builder' => function (CourseRepository $repo) {
+                    return $repo->findAll();
+                    },
                 'required' => true,
             ])
             ->add('document', FileType::class, [
@@ -29,6 +34,12 @@ class DocumentFormType extends AbstractType
                 'help' => 'Veuillez sélectionner un PDF ou Word de moins de 5 Mo',
                 'required' => true,
                 'attr' => array('class' => 'file-upload-name'),
+            ])
+            ->add('label',EntityType::class, [
+                'class' => LabelDocument::class,
+                'choice_label' => 'name',
+                'label' => 'Label',
+                'required' => true,
             ])
         ;
     }

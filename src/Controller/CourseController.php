@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use App\Form\CourseType;
 use App\Entity\CourseFavorites;
 use App\Repository\CourseRepository;
 use App\Repository\CourseFavoritesRepository;
@@ -122,6 +123,30 @@ class CourseController extends AbstractController
         return $this->render('course/myCourses.html.twig', [
             // We pass an array as props
             'props' => $serializer->serialize(['courses' => $courses], 'json'),
+        ]);
+    }
+
+    /**
+     * @Route("/create-course", name="course_create")
+     */
+    public function createCourse(Request $request, ObjectManager $manager)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $course = new Course();
+
+        $entityManager->flush();
+        $form = $this->createForm(CourseType::class, $course)
+            ->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $this->addFlash('success', 'Cours ajouté avec succès');
+            $course->setCreatedAt(new \DateTime('now'));
+            $entityManager->persist($course);
+            $manager->flush();
+            return $this->redirectToRoute('course_create');
+        }
+        return $this->render('course/create.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

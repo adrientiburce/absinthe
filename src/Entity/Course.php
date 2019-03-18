@@ -30,7 +30,7 @@ class Course implements \JsonSerializable
     private $description;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $duration;
 
@@ -40,7 +40,7 @@ class Course implements \JsonSerializable
     private $courseCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CourseFavorites", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="App\Entity\CourseFavorites", mappedBy="course", cascade={"remove"})
      */
     private $courseFavorites;
 
@@ -53,6 +53,11 @@ class Course implements \JsonSerializable
      * @ORM\OneToMany(targetEntity="App\Entity\CourseDocument", mappedBy="course")
      */
     private $documents;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -125,6 +130,7 @@ class Course implements \JsonSerializable
             $arrayFiles[] = [
                 "name" => $document->getName(),
                 "author" => $document->getAuthor()->getEmail(),
+                "label" => $document->getLabel()->getName(),
                 "date" => $document->getUpdatedAt()];
             // $arrayFiles[] = $document->getName();
         }
@@ -137,7 +143,7 @@ class Course implements \JsonSerializable
             'semester' => $this->courseCategory->getSemester(),
             'promotion' => $this->courseCategory->getPromotion(),
             'labels' => $arrayLabels,
-            'documents' => $arrayFiles,
+            'documents' => array_reverse($arrayFiles),
         );
     }
 
@@ -246,6 +252,18 @@ class Course implements \JsonSerializable
                 $document->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

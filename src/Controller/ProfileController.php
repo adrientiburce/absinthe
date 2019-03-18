@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * @IsGranted("ROLE_USER");
@@ -39,6 +40,10 @@ class ProfileController extends AbstractController
         $formPassword=$this->createForm(ChangePasswordType::class, $userPassword)
                             ->handleRequest($request);
         $user = $this->getUser();
+        $isModalOpen = false;
+        if($formPassword->isSubmitted() && !$formPassword->isValid()){
+            $isModalOpen = true;
+        }
         if($formPassword->isSubmitted() && $formPassword->isValid()){
             $this->addFlash('success', 'Mot de Passe mis à jour avec succès');
             $hash = $encoder->encodePassword(
@@ -72,6 +77,7 @@ class ProfileController extends AbstractController
             'formPassword' => $formPassword->createView(),
             'formProfile' => $formProfile->createView(),
             'documents' => $documents,
+            'isModalOpen' => $isModalOpen,
         ]);
     }
 

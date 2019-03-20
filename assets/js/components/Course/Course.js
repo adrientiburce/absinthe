@@ -56,7 +56,7 @@ class Course extends Component {
             </div>
             <div className="lable__field">
             {this.props.course.labels.map((label, idx) => (
-              <button className="course__btn course__btn--matiere" title="Département">{label}</button>
+              <button className="course__btn course__btn--matiere" title="Département" key={idx}>{label}</button>
             ))}
             </div>
           </div>

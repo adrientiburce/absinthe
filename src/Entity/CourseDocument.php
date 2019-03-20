@@ -60,10 +60,10 @@ class CourseDocument
     private $course;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\LabelDocument", inversedBy="courseDocument", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\LabelDocument", inversedBy="courseDocuments")
      */
     private $label;
+
 
     public function getId(): ?int
     {
@@ -155,10 +155,11 @@ class CourseDocument
         return $this->label;
     }
 
-    public function setLabel(LabelDocument $label): self
+    public function setLabel(?LabelDocument $label): self
     {
         $this->label = $label;
 
         return $this;
     }
+
 }

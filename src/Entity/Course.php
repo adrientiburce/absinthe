@@ -119,34 +119,6 @@ class Course implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
-    {
-        $arrayLabels = [];
-        foreach($this->labels as $label){
-            $arrayLabels[] = $label->getName();
-        }
-        $arrayFiles = [];
-        foreach($this->documents as $document){
-            $arrayFiles[] = [
-                "name" => $document->getName(),
-                "author" => $document->getAuthor()->getEmail(),
-                "label" => $document->getLabel()->getName(),
-                "date" => $document->getUpdatedAt()];
-            // $arrayFiles[] = $document->getName();
-        }
-
-        return array(
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'category' => $this->courseCategory->getName(),
-            'semester' => $this->courseCategory->getSemester(),
-            'promotion' => $this->courseCategory->getPromotion(),
-            'labels' => $arrayLabels,
-            'documents' => array_reverse($arrayFiles),
-        );
-    }
-
     /**
      * @return Collection|CourseFavorites[]
      */
@@ -266,5 +238,32 @@ class Course implements \JsonSerializable
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        $arrayLabels = [];
+        foreach($this->labels as $label){
+            $arrayLabels[] = $label->getName();
+        }
+        $arrayFiles = [];
+        foreach($this->documents as $document){
+            $arrayFiles[] = [
+                "name" => $document->getName(),
+                "author" => $document->getAuthor()->getEmail(),
+                "label" => $document->getLabel()->getName(),
+                "date" => $document->getUpdatedAt()];
+        }
+
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'category' => $this->courseCategory->getName(),
+            'semester' => $this->courseCategory->getSemester(),
+            'promotion' => $this->courseCategory->getPromotion(),
+            'labels' => $arrayLabels,
+            'documents' => array_reverse($arrayFiles),
+        );
     }
 }

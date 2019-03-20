@@ -43,18 +43,20 @@ easy_admin:
       Category:
           class: App\Entity\CourseCategory
           label: 'Catégories'
-          disabled_actions: ['delete']
           list: 
                 title: 'Liste des %%entity_label%%'
-                disabled_actions: ['delete']
                 actions:
                     - {name: '-search'}
                     - {name: 'new', label: 'Créer une Catégorie'}
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-sm btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+
           edit:
                 title: 'Modifier la catégorie %%entity_id%%'     
           form:
               fields:
+                  - {property: 'name', label: 'Nom'}
+                  - {property: 'slug', label: 'Slug'}
                   - {property: 'semester',label: 'Semestre'}
                   - {property: 'promotion', label: 'Promotion'}
 

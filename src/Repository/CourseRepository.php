@@ -26,12 +26,12 @@ class CourseRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findCourseWithCategory($category)
+    public function findCoursesWithSlug($slug)
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.courseCategory', 'category')
-            ->andWhere('category.name = :category')
-            ->setParameter('category', $category)
+            ->andWhere('category.slug = :slug')
+            ->setParameter('slug', $slug)
             ->orderBy('c.name', 'ASC')
             ->getQuery()
             ->getResult()

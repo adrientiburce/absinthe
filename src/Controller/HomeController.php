@@ -20,7 +20,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/mentions-legales", name="mentions")
      */
-    public function showMentionsLegaes()
+    public function showMentionsLegales()
     {
         return $this->render('home/mentions.html.twig', [
         ]);

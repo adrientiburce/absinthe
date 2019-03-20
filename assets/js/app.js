@@ -29,7 +29,3 @@ const $ = require('jquery');
 
 // create global $ and jQuery variables
 global.$ = global.jQuery = $;
-
-$(document).ready(function(){
-    console.log("Script working properly");
-});

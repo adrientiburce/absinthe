@@ -7,10 +7,8 @@ class CourseApp extends Component {
   constructor(initialProps, appContext) {
     super(initialProps, appContext);
   }
-
   render() {
-    const routes_courses = ['/cours-tronc-commun', '/cours-integration', '/cours-disciplinaires'];
-    const title_courses = ['Tronc Commun', 'Cours Integration', 'Cours Disciplinaires'];
+    if (this.props.initialProps.category == undefined) {
     return (
       <div>
         <Route
@@ -25,19 +23,28 @@ class CourseApp extends Component {
             <Courses {...this.props.initialProps} base={this.props.appContext.base} {...props}  title="Mes Cours Favoris"/>
           )}
         />
-        {routes_courses.map((route, idx) => (
-          <Route
-            key={idx}
-            path={route}
+      </div>
+    )
+    }
+    else{
+      return(
+        <div>
+        <Route
+          path="/cours/:id"
+          render={props => (
+            <Course {...this.props.initialProps} base={this.props.appContext.base} {...props} />
+          )}
+        />
+        <Route
+            path={`/categorie/${this.props.initialProps.category[0]["slug"]}`}
             exact
             render={props => (
-              <Courses {...this.props.initialProps} base={this.props.appContext.base} {...props} title={title_courses[idx]}/>
+              <Courses {...this.props.initialProps} base={this.props.appContext.base} {...props} title={this.props.initialProps.category[0]["name"]}/>
             )}
           />
-        ))
-        }
-      </div>
-    );
+        </div>
+      )
+      }
   }
 }
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CourseCategoryRepository")
@@ -37,6 +38,16 @@ class CourseCategory
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $promotion;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/^[a-z0-9\-\_]+$/",
+     *     match=true,
+     *     message="Votre slug doit etre en minuscule, sans espace et avec des '-'"
+     * )
+    */
+    private $slug;
 
     public function __construct()
     {
@@ -118,5 +129,26 @@ class CourseCategory
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+        );
     }
 }

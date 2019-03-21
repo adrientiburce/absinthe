@@ -30,7 +30,6 @@ class AdminController extends EasyAdminController
             $courseId = $entity->getId();
             $coursesLiked = $manager->getRepository(CourseFavorites::class)
                                     ->findBy(["course" => $courseId]);
-            // print_r($coursesLiked);
             foreach($coursesLiked as $course){
                 $manager->remove($course);
             }

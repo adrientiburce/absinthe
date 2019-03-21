@@ -6,7 +6,7 @@
 
 {% block body %}
 <div class="container mt-4">
-    <h1>Accueil</h1>
+    <h1 class="text-center">Accueil</h1>
 </div>
 <div class="container">
     <p>
@@ -15,14 +15,22 @@
     </p>
 
     <hr/>
-    <h3>Ajouter un cours : </h3>
-    <p>Si vous ne trouvez pas un cours, veuillez  <a href="{{path('course_create')}}" class="btn btn-sm btn-outline-secondary">l'ajouter ici : </a>
-    {% if not app.user %}
-    <div class="alert alert-sm alert-info">
-        <h4 class="alert-heading"> Pour vous <strong>inscrire</strong> et accéder aux cours : <a href="{{path('register')}}" class="alert-link">
+
+    {% if app.user %}
+    <div class="alert-homepage">
+    <h2 class="title">Ajouter un cours : </h2>
+        <p>Si vous ne trouvez pas un cours pour lequel vous souhaitez ajouter un document, veuillez  <a href="{{path('course_create')}}" class="alert-homepage__link">l'ajouter ici : </a>
+    </div>
+    {% else %}
+
+
+    <div class="alert-homepage">
+    <h2 class="title">Inscription </h2>
+        <p> Pour vous <strong>inscrire</strong> et pouvoir accéder aux cours : 
+        <a href="{{path('register')}}" class="alert-homepage__link">
             Cliquer ici 
         </a>
-        </h4>
+        </p>
     </div>
     {% endif %}
 

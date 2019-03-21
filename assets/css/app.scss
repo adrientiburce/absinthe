@@ -1,15 +1,95 @@
 @import "~bootstrap/scss/bootstrap";
 @import "_base.scss";
 @import "_variable.scss";
+@import "footer.scss";
 
-body {
-    font-size: 100%;
-    color: $primary-color;
-    background-color: $bkgd-color;
-    font-family: 'Sofia Pro';
-    font-weight: normal;
-    font-style: normal;
+/*----------        All Mixins        ----------*/
+
+@mixin underline-link($color-underline: black){
+    text-decoration: none;
+    position: relative;
+    &::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: $color-underline;
+        visibility: hidden;
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        transition: all 0.3s ease-in-out 0s;
+    }
+    &:hover:before{
+        visibility: visible;
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+    }
 }
+
+/*----------        end mixins          ----------*/
+
+/*=============================================
+=            Login Page & Register            =
+=============================================*/
+
+.login__btn {
+    padding: 5px 15px;
+    border: 2px solid $blue-dark;
+    background-color: #fff;
+    border-radius: 24px;
+    color: dimgray;
+    opacity: .6;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+        padding: 5px 30px;
+        color: white;
+        background-color: $blue-dark;
+        border-color: $blue-hell
+    }
+
+}
+
+/*=====  End of Section comment block  ======*/
+
+
+/*=============================================
+=               Section  Navbar                =
+=============================================*/
+
+.nav-item {
+    #nav__logout {
+        color: rgb(192, 8, 8);
+        font-style: italic;
+        transition: color .2s ease;
+
+        &:hover,
+        &:focus {
+            color: rgb(236, 51, 51);
+        }
+    }
+}
+
+.link-login{
+    color: #b4e2ff;
+}
+
+.link-underline {
+    @include underline-link(white);
+}
+
+/*=====  End of Section Navbar          ======*/
+
+
+/*=============================================
+=      Section Courses (common css for all components)     =
+=============================================*/
 
 .courses-title {
     text-align: center;
@@ -33,82 +113,6 @@ body {
 
     &:hover {
         background-color: rgb(170, 194, 201);
-    }
-}
-
-a,
-a:hover,
-a:focus {
-    text-decoration: none;
-    color: black;
-}
-.link-course{
-    transition: all .3s ease;
-    &:hover{
-        color: grey;
-    }
-}
-.link-underline{
-    text-decoration: none;
-    position: relative;
-    &::before{
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        bottom: -2px;
-        left: 0;
-        background-color: #fff;
-        visibility: hidden;
-        -webkit-transform: scaleX(0);
-        transform: scaleX(0);
-        -webkit-transition: all 0.3s ease-in-out 0s;
-        transition: all 0.3s ease-in-out 0s;
-    }
-    &:hover:before{
-        visibility: visible;
-        -webkit-transform: scaleX(1);
-        transform: scaleX(1);
-    }
-}
-
-.login__btn {
-    padding: 5px 15px;
-    border: 2px solid $blue-dark;
-    background-color: #fff;
-    border-radius: 24px;
-    color: dimgray;
-    opacity: .6;
-    cursor: pointer;
-    transition: all .4s ease-in-out;
-
-    &:hover,
-    &:focus {
-        opacity: 1;
-        padding: 5px 30px;
-        color: white;
-        background-color: $blue-dark;
-        border-color: $blue-hell
-    }
-
-}
-
-.nav-item {
-    #nav__logout {
-        color: rgb(192, 8, 8);
-        font-style: italic;
-        transition: color .2s ease;
-
-        &:hover,
-        &:focus {
-            color: rgb(236, 51, 51);
-        }
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .footer {
-        flex-direction: column;
     }
 }
 
@@ -136,80 +140,39 @@ a:focus {
     }
 }
 
-.footer {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    font-size: 12px;
-    padding: 6px 0;
-    margin-top: 10px;
+/*=====  End of Section Courses          ======*/
 
 
-    &__bde,
-    &__nav,
-    &__contact {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 33.3vw;
+.link-course{
+    display: inline-block;
+    font-size: 18px;
+    font-style: italic;
+    transition: all .5s ease;
+    &:hover{
+        color: grey;
+        transform: scale(1.05);
     }
-
-    &__contact {
-        p {
-            text-align: center;
-        }
-    }
-
-    &__bde {
-        .logo {
-            border-radius: 100%;
-            width: 18%;
-            margin-bottom: 5px;
-        }
-    }
-
-    &__nav {
-        @at-root {
-            @media screen and (max-width: 800px) {
-                .footer{
-                    &__nav {
-                        display: none;
-                    }
-                    &__bde{
-                        .logo { width: 30%;}
-                    }
-                }
-            }
-        }
-
-        .title {
-            font-style: italic;
-            font-size: 18px;
-            transition: all .3s;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        ul {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            list-style: none;
-
-            li a {
-                color: dimgray;
-                transition: color .4s ease;
-
-                &:hover {
-                    color: black;
-                    transition: color .4s ease
-                }
-            }
-
-        }
-    }
-
 }
+
+.alert-homepage{
+    margin-top: 30px;
+    border: 2px solid #8d8894;
+    box-shadow: 2px 2px 6px $grey-footer;
+    border-radius: 5px;
+    padding: 10px 20px;
+
+    .title{
+        margin: 5px 0 10px 30px
+    }
+
+    &__link{
+        @include underline-link;
+    }
+
+    p{
+        margin-bottom: 0;
+    }
+}
+
+
+

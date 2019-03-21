@@ -26,9 +26,10 @@
             </tr>
         </tbody>
     </table>
+    </br>
 
+    <h2 class="mb-4">Mes Documents</h2>
     <table class="table table-hover mt-2">
-        <h2>Mes Documents</h2>
         {% if documents is empty %}
         <p>Vous n'avez acutellement aucun document</p>
         {% else %}
@@ -40,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for document in documents %}
+            {% for document in documents|reverse %}
             <tr>
                 <td>{{document.name}}</td>
                 <td><a href="{{path('course_show', {'id': document.course.id})}}" class="link-course" title="Voir le cours">{{document.course.name}}</a></td>

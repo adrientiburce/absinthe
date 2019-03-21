@@ -25,8 +25,11 @@ class CourseDocumentRepository extends ServiceEntityRepository
     
     public function findDocumentByUser($user)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.author = :user')
+        return $this->createQueryBuilder('document')
+            ->innerJoin('document.course', 'courseDocument')
+            ->innerJoin('courseDocument.courseCategory', 'categoryName', 'WITH', 'categoryName.name != :name')
+            ->setParameter('name', 'null')
+            ->andWhere('document.author = :user')
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult()

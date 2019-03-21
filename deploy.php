@@ -2,6 +2,8 @@
 namespace Deployer;
 
 require 'recipe/symfony.php';
+require './deploy_env.php';
+
 
 // Project name
 set('application', 'absinthe');
@@ -21,17 +23,32 @@ add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 // Hosts
-
-host('webrush.fr')
-    ->user('adrien')
+host($SERVER)
+    ->user($SSH_NAME)
     ->port($SSH_PORT)
+    ->stage('production')
     ->set('deploy_path', 'var/www/{{application}}');    
     
 // Tasks
-
 task('build', function () {
     run('cd {{release_path}} && build');
 });
+
+task('test', function () {
+    writeln("Hello ");
+});
+
+task('build-local', function () {
+    run("./node_modules/.bin/encore production");
+    run("./node_modules/.bin/encore production --config webpack.config.serverside.js");
+    writeln("Build done!");
+})->local();
+
+task('build', '
+    ./node_modules/.bin/encore production;
+    ./node_modules/.bin/encore production --config webpack.config.serverside.js;
+    echo "Build done";
+')->local();
 
 task('pwd', function () {
     $result = run('pwd');
@@ -42,6 +59,5 @@ task('pwd', function () {
 after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
-
 before('deploy:symlink', 'database:migrate');
 

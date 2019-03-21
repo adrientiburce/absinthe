@@ -37,9 +37,9 @@ class CourseController extends AbstractController
     {
         
         if($category->getSlug() !== $slug){
-        return $this->redirectToRoute('course_category',[
-            'slug' => $category->getSlug()
-        ], 301);
+            return $this->redirectToRoute('course_category',[
+                'slug' => $category->getSlug()
+            ], 301);
         }
         $serializer = $this->get('serializer');
 
@@ -119,7 +119,7 @@ class CourseController extends AbstractController
     }
 
     /**
-     * @Route("/create-course", name="course_create")
+     * @Route("/creer-cours", name="course_create")
      */
     public function createCourse(Request $request, ObjectManager $manager)
     {

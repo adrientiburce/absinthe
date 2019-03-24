@@ -10,6 +10,7 @@ set('application', 'absinthe');
 
 // Project repository
 set('repository', 'git@github.com:adrientiburce/absinthe.git');
+set('branch', 'master');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true); 
@@ -27,7 +28,7 @@ host($SERVER)
     ->user($SSH_NAME)
     ->port($SSH_PORT)
     ->stage('production')
-    ->set('deploy_path', 'var/www/{{application}}');    
+    ->set('deploy_path', '/var/www/{{application}}');    
     
 // Tasks
 task('build', function () {

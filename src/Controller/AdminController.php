@@ -24,6 +24,7 @@ class AdminController extends EasyAdminController
     {
         $manager = $this->manager;
         if(!$entity instanceof Course){
+            parent::updateEntity($entity);
             return;
         }
         elseif($entity->getCourseCategory() == null) {

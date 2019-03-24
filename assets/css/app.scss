@@ -76,8 +76,12 @@
     }
 }
 
-.link-login{
-    color: #b4e2ff;
+.navbar-dark .nav-item .link-login{
+    color: #61adc7;
+    transition: color .3s ease;
+    &:hover{ 
+        color: #b7edff;
+    }
 }
 
 .link-underline {
@@ -143,6 +147,11 @@
 /*=====  End of Section Courses          ======*/
 
 
+
+/*=============================================
+=            Section homepage               =
+=============================================*/
+
 .link-course{
     display: inline-block;
     font-size: 18px;
@@ -160,9 +169,13 @@
     box-shadow: 2px 2px 6px $grey-footer;
     border-radius: 5px;
     padding: 10px 20px;
-
+    transition: all .5s ease;
+    &:hover{
+        box-shadow: 3px 3px 10px #89a3d4;
+    }
     .title{
-        margin: 5px 0 10px 30px
+        margin: 5px 0 10px 30px;
+        color: grey;
     }
 
     &__link{
@@ -174,5 +187,9 @@
     }
 }
 
+.strong{
+    font-weight: bold;
+}
 
+/*=====  End of Section homepage        ======*/
 

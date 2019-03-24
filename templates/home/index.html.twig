@@ -19,7 +19,8 @@
     {% if app.user %}
     <div class="alert-homepage">
     <h2 class="title">Ajouter un cours : </h2>
-        <p>Si vous ne trouvez pas un cours pour lequel vous souhaitez ajouter un document, veuillez  <a href="{{path('course_create')}}" class="alert-homepage__link">l'ajouter ici : </a>
+        <p>Si vous ne trouvez pas un cours pour lequel vous souhaitez ajouter un document, veuillez <a href="{{path('course_create')}}" class="alert-homepage__link strong">Cliquer ici </a>
+        </p>
     </div>
     {% else %}
 
@@ -27,7 +28,7 @@
     <div class="alert-homepage">
     <h2 class="title">Inscription </h2>
         <p> Pour vous <strong>inscrire</strong> et pouvoir accéder aux cours : 
-        <a href="{{path('register')}}" class="alert-homepage__link">
+        <a href="{{path('register')}}" class="alert-homepage__link strong">
             Cliquer ici 
         </a>
         </p>

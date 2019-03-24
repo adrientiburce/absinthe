@@ -18,4 +18,6 @@ return [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     Limenius\ReactBundle\LimeniusReactBundle::class => ['all' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
+    EasyCorp\Bundle\EasyDeployBundle\EasyDeployBundle::class => ['dev' => true, 'test' => true],
+    Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
 ];

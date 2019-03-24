@@ -40,8 +40,7 @@ class ApiTest extends WebTestCase
     public function getCourse()
     {
         return array(
-            ['/api/cours', 0],
-            ['/api/cours/1', 'course']
+            ['/api/cours', 'courses'],
         );
     }
 

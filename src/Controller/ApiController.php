@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Course;
+use App\Entity\CourseCategory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Entity\Course;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiController extends AbstractController
 {
@@ -21,10 +22,12 @@ class ApiController extends AbstractController
         $serializer = $this->get('serializer');
 
         $courses = $this->getDoctrine()
-            ->getRepository(Course::class)
+            ->getRepository(CourseCategory::class)
             ->findAll();
 
-        return new JsonResponse($serializer->normalize($courses));
+            return new JsonResponse([
+                'courses'=>$serializer->normalize($courses),
+            ]);
     }
 
     /**

@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use App\Form\CourseType;
+use App\Entity\CourseCategory;
 use App\Entity\CourseFavorites;
 use App\Repository\CourseRepository;
+use App\Repository\CourseCategoryRepository;
 use App\Repository\CourseFavoritesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -21,62 +24,38 @@ class CourseController extends AbstractController
 {
     private $courseRepository;
 
-    public function __construct(CourseRepository $courseRepository)
+    public function __construct(CourseRepository $courseRepository, CourseCategoryRepository $categoryRepository)
     {
         $this->courseRepository = $courseRepository;
-    }
-    
-    /**
-     * @Route("/cours", name="course_home")
-     */
-    public function homeAction(SerializerInterface $serializer)
-    {
-        $courses = $this->getDoctrine()
-            ->getRepository(Course::class)
-            ->findAll();
-
-        return $this->render('course/index.html.twig', [
-            // We pass an array as props
-            'props' => $serializer->serialize(['courses' => $courses], 'json'),
-        ]);
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
-     * fetch courses from repository with category 
+     * @Route("/categorie/{slug}", name="course_category", requirements={"slug": "[a-z0-9\-]*"})
      */
-    public function generateCoursesCategory(string $category)
+    public function showCoursesFromOneCategory(CourseCategory $category, string $slug, Request $request)
     {
-        $courseRepository = $this->courseRepository;
-        $courses = $courseRepository->findCourseWithCategory($category);
+        
+        if($category->getSlug() !== $slug){
+            return $this->redirectToRoute('course_category',[
+                'slug' => $category->getSlug()
+            ], 301);
+        }
         $serializer = $this->get('serializer');
+
+        $courseRepository = $this->courseRepository;
+        $courses = $courseRepository->findCoursesWithSlug($slug);
+        $categoryRepository = $this->categoryRepository;
+        $category = $categoryRepository->findBy(array('slug' => $slug));
+        
+
         return $this->render('course/index.html.twig', [
             // We pass an array as props
-            'props' => $serializer->serialize(['courses' => $courses], 'json'),
+            'props' => $serializer->serialize([
+                'courses' => $courses,
+                'category' => $category
+            ], 'json'),
         ]);
-    }
-
-    /**
-     * @Route("/cours-tronc-commun", name="course_tronc")
-     */
-    public function getCourse_tronc()
-    {
-        return $this->generateCoursesCategory('Tronc Commun');
-    }
-
-    /**
-     * @Route("/cours-integration", name="course_integration")
-     */
-    public function getCourse_integration()
-    {
-        return $this->generateCoursesCategory("Electifs d'Integration");
-    }
-
-    /**
-     * @Route("/cours-disciplinaires", name="course_disciplinaires")
-     */
-    public function getCourse_disciplinaires()
-    {
-        return $this->generateCoursesCategory("Electifs Disciplinaires");
     }
 
     /**
@@ -94,7 +73,6 @@ class CourseController extends AbstractController
         return $this->render('course/show.html.twig', [
             // We pass an array as props
             'props' => $serializer->serialize($course, 'json'),
-            'course' => $course
         ]);
     }
 
@@ -125,10 +103,42 @@ class CourseController extends AbstractController
     /**
      * @Route("/cours-favoris", name="my_courses")
      */
-    public function showFavoriteCourse()
+    public function showFavoriteCourse(SerializerInterface $serializer)
     {
+        $user = $this->getUser();
+        $userId = $user->getId();
+        $courses = $this->getDoctrine()
+            ->getRepository(Course::class)
+            ->findCoursesLikedByUser($userId);
+
+        $serializer = $this->get('serializer');
         return $this->render('course/myCourses.html.twig', [
             // We pass an array as props
+            'props' => $serializer->serialize(['courses' => $courses], 'json'),
+        ]);
+    }
+
+    /**
+     * @Route("/creer-cours", name="course_create")
+     */
+    public function createCourse(Request $request, ObjectManager $manager)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $course = new Course();
+
+        $entityManager->flush();
+        $form = $this->createForm(CourseType::class, $course)
+            ->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $this->addFlash('success', 'Cours ajouté avec succès');
+            $course->setCreatedAt(new \DateTime('now'));
+            $entityManager->persist($course);
+            $manager->flush();
+            return $this->redirectToRoute('course_create');
+        }
+        return $this->render('course/create.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

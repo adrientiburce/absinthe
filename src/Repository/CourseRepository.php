@@ -19,12 +19,20 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
-    public function findCourseWithCategory($category)
+    public function findAll()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.name', 'ASC')
+        ;
+    }
+
+    public function findCoursesWithSlug($slug)
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.courseCategory', 'category')
-            ->andWhere('category.name = :category')
-            ->setParameter('category', $category)
+            ->andWhere('category.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->orderBy('c.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
@@ -32,19 +40,18 @@ class CourseRepository extends ServiceEntityRepository
     // /**
     //  * @return Course[] Returns an array of Course objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findCoursesLikedByUser($userId)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->leftJoin('c.courseFavorites', 'favorites')
+            ->andWhere('favorites.user = :user')
+            ->setParameter('user', $userId)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Course

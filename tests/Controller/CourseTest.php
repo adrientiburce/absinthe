@@ -25,8 +25,8 @@ class CourseTest extends WebTestCase
     public function testShouldShowCourses($link_name, $result)
     {
         $form = $this->crawler->selectButton('Connexion')->form();
-        $form['email'] = 'admin@centrale.centralelille.fr';
-        $form['password'] = 'testons';
+        $form['email'] = 'admin@demo.fr';
+        $form['password'] = 'admin';
         $crawler = $this->client->submit($form);
         $link = $crawler->selectLink($link_name)->link();
         $crawler = $this->client->click($link);
@@ -36,9 +36,9 @@ class CourseTest extends WebTestCase
     public function getCourses()
     {
         return array(
-            ['Tronc Commun', 'Cours :Tronc Commun'],
-            ['Electifs Disciplinaires', "Cours :Electifs Disciplinaires"],
-            // ["Electifs d'Intégration", "Cours :Electifs d'Integration"],
+            ['Tronc Commun (S5)', 'Tronc Commun'],
+            ["Electifs d'Integration (S7)", "Electifs d'Integration"],
+            ["Electifs Disciplinaires (S6-S8)", "Electifs Disciplinaires"],
         );
     }
 

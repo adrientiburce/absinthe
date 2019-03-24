@@ -42,6 +42,7 @@ export default class Courses extends Component {
         </Helmet>
         <CourseList
           courses={this.state.courses}
+          title={this.props.title}
           routePrefix={this.props.base}
         />
       </div>

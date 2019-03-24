@@ -4,17 +4,26 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\ChangePasswordType;
+use App\Form\Model\ChangePassword;
+use App\Repository\CourseDocumentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
+    private $objectManager;
+
+    public function __construct(ObjectManager $objectManager){
+        $this->objectManager = $objectManager;
+    }
+
     /**
      * @Route("/login", name="app_login")
      */
@@ -38,7 +47,6 @@ class SecurityController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setCreatedAt(new \DateTime());
@@ -59,16 +67,7 @@ class SecurityController extends AbstractController
 
         ]);
     }
-    /**
-     * @Route("/mon-compte", name="home_login")
-     * @IsGranted("ROLE_USER");
-     */
-    public function home()
-    {
-        return $this->render('security/home.html.twig', [
 
-        ]);
-    }
     /**
      * @Route("/logout", name="app_logout")
      */

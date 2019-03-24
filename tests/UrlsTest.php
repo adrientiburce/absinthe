@@ -41,9 +41,9 @@ class UrlsTest extends WebTestCase
     {
         return array(
             ['/admin'],
-            ['/cours-tronc-commun'],
-            ['/cours-disciplinaires'],
-            ['/cours-integration'],
+            ['/categorie/tronc-commun'],
+            ['/categorie/electifs-disciplinaires'],
+            ['/categorie/electifs-integration'],
             ['/mon-compte'],
         );
     }

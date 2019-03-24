@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CourseDocumentRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -19,7 +20,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/mentions-legales", name="mentions")
      */
-    public function showMentionsLegaes()
+    public function showMentionsLegales()
     {
         return $this->render('home/mentions.html.twig', [
         ]);

@@ -24,8 +24,8 @@ class LoginTest extends WebTestCase
     public function testShouldLogUserAndRedirectToHomePage()
     {
         $form = $this->crawler->selectButton('Connexion')->form();
-        $form['email'] = 'admin@centrale.centralelille.fr';
-        $form['password'] = 'testons';
+        $form['email'] = 'admin@demo.fr';
+        $form['password'] = 'admin';
         $crawler = $this->client->submit($form);
         $this->assertContains('Accueil', $crawler->filter('h1')->text());
         $this->assertSame(1, $crawler->filter('#nav__logout')->count());

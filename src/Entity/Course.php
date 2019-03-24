@@ -30,7 +30,7 @@ class Course implements \JsonSerializable
     private $description;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", nullable=true)
      */
     private $duration;
 
@@ -40,7 +40,7 @@ class Course implements \JsonSerializable
     private $courseCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CourseFavorites", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="App\Entity\CourseFavorites", mappedBy="course", cascade={"remove"})
      */
     private $courseFavorites;
 
@@ -49,10 +49,21 @@ class Course implements \JsonSerializable
      */
     private $labels;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CourseDocument", mappedBy="course")
+     */
+    private $documents;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->courseFavorites = new ArrayCollection();
         $this->labels = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,18 +117,6 @@ class Course implements \JsonSerializable
         $this->courseCategory = $courseCategory;
 
         return $this;
-    }
-
-    public function jsonSerialize()
-    {
-        return array(
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'category' => $this->courseCategory->getName(),
-            'semester' => $this->courseCategory->getSemester(),
-            'promotion' => $this->courseCategory->getPromotion()
-        );
     }
 
     /**
@@ -196,5 +195,75 @@ class Course implements \JsonSerializable
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|CourseDocument[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(CourseDocument $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(CourseDocument $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getCourse() === $this) {
+                $document->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        $arrayLabels = [];
+        foreach($this->labels as $label){
+            $arrayLabels[] = $label->getName();
+        }
+        $arrayFiles = [];
+        foreach($this->documents as $document){
+            $arrayFiles[] = [
+                "name" => $document->getName(),
+                "author" => $document->getAuthor()->getEmail(),
+                "label" => $document->getLabel()->getName(),
+                "date" => $document->getUpdatedAt()];
+        }
+
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'category' => $this->courseCategory->getName(),
+            'semester' => $this->courseCategory->getSemester(),
+            'promotion' => $this->courseCategory->getPromotion(),
+            'labels' => $arrayLabels,
+            'documents' => array_reverse($arrayFiles),
+        );
     }
 }

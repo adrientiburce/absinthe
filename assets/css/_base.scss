@@ -1,22 +1,42 @@
+@import "_variable.scss";
+
 * {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-body {
-  min-height: 100vh;
-}
 
 body {
+  font-size: 100%;
+  color: $primary-color;
+  background-color: $bkgd-color;
+  font-family: 'Sofia Pro';
+  font-weight: normal;
+  font-style: normal;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
+
+
+/*=====  Flexbox -> footer sticks to the bottom of the page  ======*/
 
 .main-container {
   flex: 1 1 auto;
 }
 
+/*----------    ----------*/
+
+
 footer {
-  background-color: rgb(204, 204, 204);
+  background-color: $grey-footer;
   margin-top: 10px;
+}
+
+a,
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: black;
 }

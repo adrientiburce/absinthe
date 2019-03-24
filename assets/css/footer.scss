@@ -1,0 +1,84 @@
+@import "_variable.scss";
+
+@media screen and (max-width: 800px) {
+    .footer {
+        flex-direction: column;
+    }
+}
+
+.footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 12px;
+    padding: 6px 0;
+    margin-top: 10px;
+
+
+    &__bde,
+    &__nav,
+    &__contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 33.3vw;
+    }
+
+    &__contact {
+        p {
+            text-align: center;
+        }
+    }
+
+    &__bde {
+        .logo {
+            border-radius: 100%;
+            width: 18%;
+            margin-bottom: 5px;
+        }
+    }
+
+    &__nav {
+        @at-root {
+            @media screen and (max-width: 800px) {
+                .footer{
+                    &__nav {
+                        display: none;
+                    }
+                    &__bde{
+                        .logo { width: 30%;}
+                    }
+                }
+            }
+        }
+
+        .title {
+            font-style: italic;
+            font-size: 18px;
+            transition: all .3s;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            list-style: none;
+
+            li a {
+                color: dimgray;
+                transition: color .4s ease;
+
+                &:hover {
+                    color: black;
+                    transition: color .4s ease
+                }
+            }
+
+        }
+    }
+}

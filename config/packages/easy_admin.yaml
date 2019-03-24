@@ -1,13 +1,18 @@
 easy_admin:
     site_name: "Admin d'Absinthe"
+    disabled_actions: ['show']
     design:
       menu:
               - { label: 'Accueil Publique', url: '/', icon: 'home'}
               - label: 'Cours'
                 children:
-                    - {entity: 'Course', icon: 'pencil'}
-                    - {entity: 'Category', icon: 'inbox', default: true}
-                    - {entity: 'Labels', icon: 'tags'}
+                    - {entity: 'Course', icon: 'pencil', default: true}
+                    - {entity: 'Category', icon: 'inbox'}
+                    - {entity: 'LabelCourse', icon: 'tags'}
+              - label: 'Documents'
+                children:
+                    - {entity: 'Documents', icon: 'file'}
+                    - {entity: 'LabelDocument', icon: 'tags'}
               - {entity: 'Users', icon: 'users'}
     user:
         name_property_path: 'email'
@@ -20,6 +25,7 @@ easy_admin:
           list: 
                 fields: 
                     - {property: 'name', label: 'Nom'}
+                    - {property: 'createdAt',label: 'Ajouté le'}
                     - {property: 'courseCategory', label: 'Catégorie'}
                     - labels
                 actions:
@@ -36,23 +42,25 @@ easy_admin:
 
       Category:
           class: App\Entity\CourseCategory
-          label: 'Catégorie de cours'
-          disabled_actions: ['delete']
+          label: 'Catégories'
           list: 
                 title: 'Liste des %%entity_label%%'
-                disabled_actions: ['delete']
                 actions:
                     - {name: '-search'}
                     - {name: 'new', label: 'Créer une Catégorie'}
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-sm btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+
           edit:
                 title: 'Modifier la catégorie %%entity_id%%'     
           form:
               fields:
+                  - {property: 'name', label: 'Nom'}
+                  - {property: 'slug', label: 'Slug'}
                   - {property: 'semester',label: 'Semestre'}
                   - {property: 'promotion', label: 'Promotion'}
 
-      Labels:
+      LabelCourse:
           class: App\Entity\LabelCourse
           label: 'Labels'
           list: 
@@ -63,7 +71,6 @@ easy_admin:
           form:
             fields: 
                   - {property: 'name', label: 'Nom'}
-
       Users:
             class: App\Entity\User
             label: 'Utilisateurs'
@@ -73,6 +80,30 @@ easy_admin:
                 fields: 
                     - email
                     - pseudo
-                    - { property: 'created_at', format: 'j/n/Y' }
+                    - { property: 'created_at', label: 'Compte crée le', format: 'j/n/Y' }
                 actions:
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+      Documents:
+                class: App\Entity\CourseDocument
+                label: 'Documents'
+                disabled_actions: ['new', 'edit']
+                list:
+                    help: 'Vous pouvez ici supprimer des documents inadaptés'
+                    fields: 
+                        - name
+                        - { property: 'author', label: 'Auteur' }
+                        - { property: 'course', label: 'Cours' }
+                        - { property: 'updatedAt', label: 'Ajouté le' }
+                    actions:
+                        - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+      LabelDocument:
+          class: App\Entity\LabelDocument
+          label: 'Labels'
+          list: 
+                actions:
+                    - {name: 'new', label: 'Créer un Label'}
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-sm btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-sm btn-danger'}
+          form:
+            fields: 
+                  - {property: 'name', label: 'Nom'}

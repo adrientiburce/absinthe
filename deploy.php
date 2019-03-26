@@ -6,7 +6,7 @@ require './deploy_env.php';
 
 
 // Project name
-set('application', 'absinthe');
+set('application', 'new-absinthe');
 
 // Project repository
 set('repository', 'git@github.com:adrientiburce/absinthe.git');
@@ -16,11 +16,11 @@ set('branch', 'master');
 set('git_tty', true); 
 
 // Shared files/dirs between deploys 
-add('shared_files', []);
+add('shared_files', ['.env.dist']);
 add('shared_dirs', []);
 
 // Writable dirs by web server 
-add('writable_dirs', []);
+add('writable_dirs', ['public/course', 'var']);
 set('allow_anonymous_stats', false);
 
 // Hosts
@@ -28,28 +28,64 @@ host($SERVER)
     ->user($SSH_NAME)
     ->port($SSH_PORT)
     ->stage('production')
-    ->set('deploy_path', '/var/www/{{application}}');    
+    ->set('deploy_path', '/var/www/{{application}}')
+    ->set('env', [
+        'APP_ENV'=>'prod',
+        ]);
     
-// Tasks
-task('build', function () {
-    run('cd {{release_path}} && build');
-});
-
 task('test', function () {
     writeln("Hello ");
 });
 
-task('build-local', function () {
-    run("./node_modules/.bin/encore production");
-    run("./node_modules/.bin/encore production --config webpack.config.serverside.js");
-    writeln("Build done!");
-})->local();
+set('bin/console', function () {
+    return parse('{{bin/php}} {{release_path}}/bin/console --no-interaction');
+});
 
-task('build', '
-    ./node_modules/.bin/encore production;
-    ./node_modules/.bin/encore production --config webpack.config.serverside.js;
-    echo "Build done";
-')->local();
+task('database:migrate', function () {
+    // $options = '--allow-no-migration';
+    // if (get('migrations_config') !== '') {
+    //     $options = sprintf('%s --configuration={{release_path}}/{{migrations_config}}', $options);
+    // }
+    $options = "";
+    run(sprintf('{{bin/console}} doctrine:migrations:migrate %s', $options));
+});
+
+task('database:make:migration', function(){
+    run('cd {{release_path}} && APP_ENV=dev php bin/console make:migration');
+});
+// before('database:migrate', 'database:make:migration');
+
+
+// task('deploy:cache:clear', function () {
+//     run('{{bin/console}} cache:clear --no-warmup');
+// });
+// task('deploy:cache:warmup', function () {
+//     run('{{bin/console}} cache:warmup');
+// });
+
+
+task('deploy:build-prod', function () {
+    run("cd {{release_path}} && ./node_modules/.bin/encore production");
+    run("cd {{release_path}} && ./node_modules/.bin/encore production --config webpack.config.serverside.js");
+});
+
+task('deploy:vendors', function () {
+    // Your custom update code
+    run("export APP_ENV='prod'; cd {{release_path}} && composer install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader; npm install");
+});
+
+task('deploy:cache:clear', function() {
+    run("cd {{release_path}} && rm -fr var/cache/prod && rm -fr var/cache/dev");
+});
+
+// task('deploy:cache:warmup', function() {
+//     run("export APP_ENV='prod'; cd {{release_path}} && APP_ENV=prod APP_DEBUG=0 php bin/console cache:warmup");
+// });
+
+task('deploy:change:acl', function() {
+    run("cd {{release_path}} && setfacl -Rm 'u:www-data:rwx' var/ && setfacl -Rm 'u:www-data:rwx' var/");
+    run("cd {{release_path}} && setfacl -Rm 'u:www-data:rwx' public/course && setfacl -Rm 'u:www-data:rwx' public/course");
+});
 
 task('pwd', function () {
     $result = run('pwd');
@@ -59,6 +95,33 @@ task('pwd', function () {
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
-// Migrate database before symlink new release.
-before('deploy:symlink', 'database:migrate');
+//
+after('deploy:cache:warmup', 'deploy:change:acl');
 
+// Migrate database before symlink new release.
+// before('deploy:symlink', 'database:migrate');
+
+/**
+ * Main task
+ */
+task('deploy', [
+    'deploy:info',
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:clear_paths',
+    'deploy:create_cache_dir',
+    'deploy:shared',
+    'deploy:assets', 
+    'deploy:vendors',
+    'deploy:build-prod', // build with encore 
+    'deploy:assetic:dump',
+    'deploy:cache:clear',
+    // 'deploy:cache:warmup', //issue with own after cache:warmup www-data :no acces
+    'deploy:writable',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+    'success'
+]);

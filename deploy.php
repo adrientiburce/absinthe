@@ -16,7 +16,7 @@ set('branch', 'master');
 set('git_tty', true); 
 
 // Shared files/dirs between deploys 
-add('shared_files', ['.env.dist']);
+add('shared_files', ['.env.prod.local']);
 add('shared_dirs', []);
 
 // Writable dirs by web server 
@@ -42,27 +42,13 @@ set('bin/console', function () {
 });
 
 task('database:migrate', function () {
-    // $options = '--allow-no-migration';
-    // if (get('migrations_config') !== '') {
-    //     $options = sprintf('%s --configuration={{release_path}}/{{migrations_config}}', $options);
-    // }
+    $options = '--allow-no-migration';
+    if (get('migrations_config') !== '') {
+        $options = sprintf('%s --configuration={{release_path}}/{{migrations_config}}', $options);
+    }
     $options = "";
     run(sprintf('{{bin/console}} doctrine:migrations:migrate %s', $options));
 });
-
-task('database:make:migration', function(){
-    run('cd {{release_path}} && APP_ENV=dev php bin/console make:migration');
-});
-// before('database:migrate', 'database:make:migration');
-
-
-// task('deploy:cache:clear', function () {
-//     run('{{bin/console}} cache:clear --no-warmup');
-// });
-// task('deploy:cache:warmup', function () {
-//     run('{{bin/console}} cache:warmup');
-// });
-
 
 task('deploy:build-prod', function () {
     run("cd {{release_path}} && ./node_modules/.bin/encore production");
@@ -87,20 +73,19 @@ task('deploy:change:acl', function() {
     run("cd {{release_path}} && setfacl -Rm 'u:www-data:rwx' public/course && setfacl -Rm 'u:www-data:rwx' public/course");
 });
 
-task('pwd', function () {
-    $result = run('pwd');
-    writeln("Current dir: $result");
+task('update:env', function () {
+    run("echo 'DATABASE_URL=mysql://adrient:joncyclesu adrien@127.0.0.1:3306/absinthe' > .env.prod.local");
 });
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
-//
-after('deploy:cache:warmup', 'deploy:change:acl');
+// we enable env variables for prod
+after('update_code', 'update:env');
 
 // Migrate database before symlink new release.
 // before('deploy:symlink', 'database:migrate');
-
+after('deploy:symlink', 'database:migrate');
 /**
  * Main task
  */

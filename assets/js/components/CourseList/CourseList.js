@@ -11,7 +11,7 @@ const CourseList = props => (
     <div className="block-courses">
       {props.courses.map((course, idx) => (
         <Link to={`/cours/${course.id}`} key={idx}>
-          <div className="card-courses">
+          <div className="small-card">
             <CourseSmall course={course} idx={idx} />
           </div>
         </Link>

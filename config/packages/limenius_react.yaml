@@ -8,7 +8,7 @@ limenius_react:
         # Replay every console.log message produced during server-side rendering
         # in the JavaScript console
         # Note that if enabled it will throw a (harmless) React warning
-        trace: true
+        trace: false
         # Mode can be `"phpexecjs"` (to execute Js from PHP using PhpExecJs),
         # or `"external_server"` (to rely on an external node.js server)
         # Default is `"phpexecjs"`

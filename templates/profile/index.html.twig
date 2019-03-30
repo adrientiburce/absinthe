@@ -29,6 +29,7 @@
     </br>
 
     <h2 class="mb-4">Mes Documents</h2>
+    <div class="table-mobile">
     <table class="table table-hover mt-2">
         {% if documents is empty %}
         <p>Vous n'avez acutellement aucun document</p>
@@ -59,7 +60,7 @@
         {% endif %}
         
     </table>
-
+    </div>
     <div class="modal fade" id="formProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" data-focus="true">
         <div class="modal-dialog" role="document">

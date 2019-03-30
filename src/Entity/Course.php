@@ -6,9 +6,13 @@ use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CourseRepository")
+ * @UniqueEntity("name",
+ *     message="Le nom de ce cours existe déjà"
+ * )
  */
 class Course implements \JsonSerializable
 {
@@ -20,7 +24,7 @@ class Course implements \JsonSerializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 

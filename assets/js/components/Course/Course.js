@@ -37,33 +37,32 @@ class Course extends Component {
       <div>
       <div className="card-course" key="1">
         <p className="text-success">{this.state.message}</p>
-        <div className="card-course__header">
-          <h1 className="header__title">
+        <div className="course-header">
+          <h1 className="course-header__title">
             <span id="course-like" onClick={this.handleClick} title={this.state.isLiked ? 'Enlever des favoris' : 'Ajouter aux favoris'}>
               <i className={this.state.isLiked ? 'fas fa-star' : 'far fa-star'} />
-            </span>
-&nbsp;
+            </span> &nbsp;
             {this.props.course.name}
           </h1>
-          <button className="card-course__header__button">{this.props.course.category}</button>
+          <button className="course-header__button">{this.props.course.category}</button>
         </div>
-        <div className="card__legend">
-          <p className="card-course__legend">{this.props.course.description}</p>
-          <div className="card-lable">
-            <div className="lable__category">
-              <button className="course__btn" title="Semestre">{this.props.course.semester}</button>
-              <button className="course__btn" title="Promotion">{this.props.course.promotion}</button>
+        <div className="course-legend">
+          <p className="description">{this.props.course.description}</p>
+          <div className="labels">
+            <div className="labels__category">
+              <button className="labels__btn" title="Semestre">{this.props.course.semester}</button>
+              <button className="labels__btn" title="Promotion">{this.props.course.promotion}</button>
             </div>
-            <div className="lable__field">
+            <div className="labels__field">
             {this.props.course.labels.map((label, idx) => (
-              <button className="course__btn course__btn--matiere" title="Département" key={idx}>{label}</button>
+              <button className="labels__btn labels__btn--matiere" title="Département" key={idx}>{label}</button>
             ))}
             </div>
           </div>
         </div>
       </div>
       <div className="card-course" key="2">
-        <h1 className="header__title">Documents</h1>
+        <h1>Documents</h1>
 
         <CourseDocument course={this.props.course} base={this.props.base}/> 
         <a className="card-document__upload" href={`${this.props.base}/upload`}>Uploader un document</a>

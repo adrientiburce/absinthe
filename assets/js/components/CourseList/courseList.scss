@@ -1,8 +1,15 @@
 @import "../../../css/_variable.scss";
 
-.card-courses {
+.block-courses {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.small-card {
     border: 1px solid rgb(223, 223, 223);
-    margin: 10px;
+    margin: 10px 5px;
     padding: 10px;
     transition: all .5s ease;
     width: 350px;
@@ -18,7 +25,7 @@
         display: flex;
         text-align: center;
         color: $blue-dark;
-        font-size: 1.3em;
+        font-size: 1.8em;
         padding-top: 5px;
 
         &::before,
@@ -28,7 +35,7 @@
             background: $blue-hell;
             height: 2px;
             align-self: center;
-            margin: auto 0.5em;
+            margin: auto 0.6em;
         }
     }
 }

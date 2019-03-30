@@ -101,13 +101,6 @@
     color: $blue-dark;
 }
 
-.block-courses {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 40px;
-}
-
 .card-courses__btn {
     border: 3px $blue-hell solid;
     transition: all .3s ease;
@@ -117,30 +110,6 @@
 
     &:hover {
         background-color: rgb(170, 194, 201);
-    }
-}
-
-.card-course__header {
-    margin: 5px 0 10px;
-    display: flex;
-    justify-content: space-around;
-
-    &__title {
-        text-align: center;
-        color: $blue-title;
-    }
-
-    &__button {
-        border: 2px solid $blue-title;
-        margin: 5px 0;
-        padding: 8px;
-        font-style: 12px;
-        transition: all .4s ease-in-out;
-
-        &:hover {
-            background-color: $blue-title;
-            color: white;
-        }
     }
 }
 
@@ -193,3 +162,14 @@
 
 /*=====  End of Section homepage        ======*/
 
+
+/*=============================================
+=            Section        Profile            =
+=============================================*/
+
+.table-mobile{
+    overflow-x: auto;
+}
+
+
+/*=====  End of Section Profile          ======*/

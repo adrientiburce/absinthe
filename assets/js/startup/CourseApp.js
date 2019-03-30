@@ -27,6 +27,7 @@ class CourseApp extends Component {
     )
     }
     else{
+      console.log(this.props.initialProps.category);
       return(
         <div>
         <Route
@@ -36,6 +37,7 @@ class CourseApp extends Component {
           )}
         />
         <Route
+
             path={`/categorie/${this.props.initialProps.category[0]["slug"]}`}
             exact
             render={props => (

@@ -6,7 +6,8 @@ class CourseDocument extends Component {
   render() {
     if (this.props.course.documents.length != 0) {
     return(
-      <table className="table full-width">
+      <div className="table-responsive">
+      <table className="table">
         <thead>
           <tr>
               <th>Document</th>
@@ -18,7 +19,7 @@ class CourseDocument extends Component {
       {this.props.course.documents.map((document, idx) => (
         <tr key={idx}>
           <td>
-            <a href={`${this.props.base}/course/document/${document["name"]}`} className="link-upload" download={`${document["name"]}`} title="Télécharger"> {document["name"]}</a> &nbsp; 
+            <a href={`${this.props.base}/course/document/${document["name"]}`} className="link-upload" download={`${document["name"]}`} title="Télécharger"> {document["name"]}</a>
             <span className="document--btn">{document["label"]}</span>
           </td> 
           <td>
@@ -35,6 +36,7 @@ class CourseDocument extends Component {
       ))}
         </tbody>
       </table>
+      </div>
     )
     }
     else{

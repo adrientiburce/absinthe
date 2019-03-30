@@ -13,16 +13,12 @@
             margin: 25px 20px;
         }
     }
-
-    &__legend {
-        padding-left: 5px;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-    }
-
+    
 }
 
+/*=============================================
+=            Section course card            =
+=============================================*/
 #course-like {
     cursor: pointer;
     font-size: 28px;
@@ -30,44 +26,80 @@
     opacity: .9;
 }
 
-.card__legend {
-    position: relative;
-}
+.course-header {
+    margin: 5px 0 10px;
+    display: flex;
+    justify-content: space-around;
 
-.course__btn {
-    padding: 2px 15px;
-    margin-right: 20px;
-    border: 2px solid $blue-title;
-    border-radius: 24px;
-    background-color: $blue-dark;
-    color: white;
-    font-size: 15px;
-    transition: all .5s ease;
-    cursor: default !important;
-
-    &:hover {
-        background-color: $blue-title;
+    &__title {
+        text-align: center;
+        color: $blue-title;
     }
 
-    &--matiere {
-        border: 2px solid $green-hell;
-        background-color: $green-btn;
+    &__button {
+        border: 2px solid $blue-title;
+        margin-left: 5px;
+        padding: 0 5px 0 5px;
+        font-style: 12px;
+        transition: all .4s ease-in-out;
 
         &:hover {
-            background-color: $green-hell;
+            background-color: $blue-title;
+            color: white;
         }
     }
 }
 
-.card-lable{
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
+
+.course-legend {
+    position: relative;
+
+    .description{
+        padding-left: 5px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+    }
 }
 
-table.full-width{
-    width: 100%;
+.labels{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+
+    &__btn {
+        padding: 2px 15px;
+        margin-left: 10px;
+        border: 2px solid $blue-title;
+        border-radius: 24px;
+        background-color: $blue-dark;
+        color: white;
+        font-size: 15px;
+        transition: all .5s ease;
+        cursor: default !important;
+    
+        &:hover {
+            background-color: $blue-title;
+        }
+    
+        &--matiere {
+            border: 2px solid $green-hell;
+            background-color: $green-btn;
+            margin: 0 10px 0;
+            
+            &:hover {
+                background-color: $green-hell;
+            }
+        }
+    }
 }
+
+/*=====  End of Section course card  ======*/
+
+
+/*=============================================
+=            Section        document           =
+=============================================*/
 
 .card-document__upload{
     border: 2px solid $blue-title;
@@ -92,7 +124,7 @@ table.full-width{
 }
 .document--btn {
     padding: 2px 15px;
-    margin-right: 20px;
+    margin-left: 30px;
     border-radius: 24px;
     border: 2px solid $green-hell;
     background-color: $green-hell;
@@ -100,4 +132,13 @@ table.full-width{
     font-size: 15px;
     transition: all .5s ease;
     cursor: default !important;
+
+    @media screen and (max-width: 1050px) {
+        & {
+            margin-left: 10px;
+        }
+    }
 }
+
+
+/*=====  End of Section     document     ======*/

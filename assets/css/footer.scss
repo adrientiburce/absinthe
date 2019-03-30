@@ -5,7 +5,11 @@
         flex-direction: column;
     }
 }
-
+@media screen and (min-width: 800px) {
+    .mobile-only{
+        display: none;
+    }
+}
 .footer {
     display: flex;
     justify-content: space-evenly;
@@ -23,6 +27,9 @@
         align-items: center;
         justify-content: center;
         width: 33.3vw;
+        .mobile-only{
+            margin-top: -10px;
+        }
     }
 
     &__contact {

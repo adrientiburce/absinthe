@@ -74,18 +74,19 @@ task('deploy:change:acl', function() {
 });
 
 task('update:env', function () {
-    run("echo 'DATABASE_URL=mysql://adrient:joncyclesu adrien@127.0.0.1:3306/absinthe' > .env.prod.local");
+    run("ln -s /var/www/new-absinthe/shared/.env.dist .env.local");
 });
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
 // we enable env variables for prod
-after('update_code', 'update:env');
+after('deploy:update_code', 'update:env');
 
 // Migrate database before symlink new release.
 // before('deploy:symlink', 'database:migrate');
-after('deploy:symlink', 'database:migrate');
+
+
 /**
  * Main task
  */

@@ -25,4 +25,13 @@ class HomeController extends AbstractController
         return $this->render('home/mentions.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/protections-donnes", name="cookies")
+     */
+    public function showCookies()
+    {
+        return $this->render('home/cookies.html.twig', [
+        ]);
+    }
 }

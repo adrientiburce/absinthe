@@ -26,6 +26,15 @@ class CourseRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findCoursesWithCategory()
+    {
+        return $this->createQueryBuilder('course')
+            ->innerJoin('course.courseCategory', 'categoryName', 'WITH', 'categoryName.name != :name')
+            ->setParameter('name', 'null')
+            ->orderBy('course.name', 'ASC')  
+        ;
+    }
+
     public function findCoursesWithSlug($slug)
     {
         return $this->createQueryBuilder('c')

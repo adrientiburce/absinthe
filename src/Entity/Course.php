@@ -34,11 +34,6 @@ class Course implements \JsonSerializable
     private $description;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
-     */
-    private $duration;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CourseCategory", inversedBy="courses")
      */
     private $courseCategory;
@@ -99,17 +94,6 @@ class Course implements \JsonSerializable
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(\DateTimeInterface $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
 
     public function getCourseCategory(): ?CourseCategory
     {

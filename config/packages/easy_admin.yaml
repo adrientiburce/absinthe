@@ -37,7 +37,6 @@ easy_admin:
               fields:
                   - {property: 'name', label: 'Nom'}
                   - {property: 'description',label: 'Description'}
-                  - {property: 'duration',label: 'Durée (mois)'}
                   - {property: 'courseCategory', label: 'Catégorie'}
                   - {property: 'labels', label: 'Labels'}
 

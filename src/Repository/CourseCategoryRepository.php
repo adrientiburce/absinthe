@@ -20,7 +20,6 @@ class CourseCategoryRepository extends ServiceEntityRepository
     }
 
 
-
     // /**
     //  * @return CourseCategory[] Returns an array of CourseCategory objects
     //  */

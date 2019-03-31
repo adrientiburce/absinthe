@@ -21,12 +21,12 @@ class DocumentFormType extends AbstractType
                 'class' => Course::class,
                 'label' => 'Cours',
                 'choice_label' => 'name',
+                'query_builder' => function (CourseRepository $repo) {
+                    return $repo->findCoursesWithCategory();
+                    },
                 'group_by' => function(Course $choiceValue) {
                     return $choiceValue->getCourseCategory();
                 },
-                'query_builder' => function (CourseRepository $repo) {
-                    return $repo->findAll();
-                    },
                 'required' => true,
             ])
             ->add('document', FileType::class, [

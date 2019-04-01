@@ -16,7 +16,7 @@ set('branch', 'master');
 set('git_tty', true); 
 
 // Shared files/dirs between deploys 
-add('shared_files', ['.env.prod']);
+add('shared_files', ['.env.local']);
 add('shared_dirs', []);
 
 // Writable dirs by web server 

@@ -5,9 +5,9 @@ class CourseSmall extends Component {
     return (
       <div>
         <h1 className="small-card__title">
-          {this.props.course.name}
+          <span className="title--reSize">{this.props.course.name}</span>
         </h1>
-        <div className="card-labels mt-4">
+        <div className="card-labels">
         <div>
         <button className="course-header__button">{this.props.course.category}</button>
         </div>

@@ -12,11 +12,11 @@
     margin: 10px 5px;
     padding: 10px;
     transition: all .5s ease;
-    height: 200px;
+    min-height: 200px;
     position: relative;
     @media screen and (max-width: 400px) {
         & {
-            min-width: 300px;
+            width: 300px;
         }
     }
     @media screen and (min-width: 400px) {

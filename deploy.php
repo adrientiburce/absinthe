@@ -16,7 +16,7 @@ set('branch', 'master');
 set('git_tty', true); 
 
 // Shared files/dirs between deploys 
-add('shared_files', ['.env.prod.local']);
+add('shared_files', ['.env.prod']);
 add('shared_dirs', []);
 
 // Writable dirs by web server 
@@ -74,14 +74,16 @@ task('deploy:change:acl', function() {
 });
 
 task('update:env', function () {
+    run("rm .env; rm .env.local");
     run("ln -s /var/www/new-absinthe/shared/.env.dist .env.local");
+    run("rm .env");
 });
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
 // we enable env variables for prod
-after('deploy:update_code', 'update:env');
+// after('deploy:update_code', 'update:env');
 
 // Migrate database before symlink new release.
 // before('deploy:symlink', 'database:migrate');

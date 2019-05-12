@@ -25,59 +25,70 @@ class ProfileController extends AbstractController
 {
     private $objectManager;
 
-    public function __construct(ObjectManager $objectManager){
+    public function __construct(ObjectManager $objectManager)
+    {
         $this->objectManager = $objectManager;
     }
 
     /**
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param CourseDocumentRepository $documentRepository
+     * @return RedirectResponse|Response
      * @Route("/mon-compte", name="home_profile")
      */
-    public function home_profile(Request $request, UserPasswordEncoderInterface $encoder, CourseDocumentRepository $documentRepository)
-    {
-        $userPassword = new ChangePassword();
-        $objectManager = $this->objectManager;
-        
-        $formPassword=$this->createForm(ChangePasswordType::class, $userPassword)
-                            ->handleRequest($request);
+    public function homeProfile(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        CourseDocumentRepository $documentRepository
+    ) {
         $user = $this->getUser();
-        $isModalOpen = false;
-        if($formPassword->isSubmitted() && !$formPassword->isValid()){
-            $isModalOpen = true;
-        }
-        if($formPassword->isSubmitted() && $formPassword->isValid()){
-            $this->addFlash('success', 'Mot de Passe mis à jour avec succès');
-            $hash = $encoder->encodePassword(
-                    $user,
-                    $userPassword->getPassword());
-            $user->setPassword($hash);
-            $objectManager->flush();
-            return $this->redirectToRoute('home_profile');
-        }
+        $objectManager = $this->objectManager;
+        // handle Form for P A S S W O R D
+        // $userPassword = new ChangePassword();
+        // $formPassword=$this->createForm(ChangePasswordType::class, $userPassword)
+        //                     ->handleRequest($request);
 
-        $formProfile = $this->createForm(UserType::class, $user)
-                            ->remove('password')
-                            ->remove('confirm_password')
-                            ->handleRequest($request);
-        if($formProfile->isSubmitted()){
-            $this->addFlash('danger', 'Un problème est survenu');
-            return $this->redirectToRoute('home_profile');
-        }
-        if($formProfile->isSubmitted() && $formProfile->isValid()){
-            $this->addFlash('success', 'Profil mis à jour avec succès');
-            $objectManager->flush();
-            return $this->redirectToRoute('home');
-        }
-        // else if($formProfile->isSubmitted()){
-        //     $this->addFlash('danger', 'Un problème est survenu');
+        // $isPassModalOpen = false;
+        // if($formPassword->isSubmitted() && !$formPassword->isValid()){
+        //     $isPassModalOpen = true;
+        // }
+        // if($formPassword->isSubmitted() && $formPassword->isValid()){
+        //     $this->addFlash('success', 'Mot de Passe mis à jour avec succès');
+        //     $hash = $encoder->encodePassword(
+        //             $user,
+        //             $userPassword->getPassword());
+        //     $user->setPassword($hash);
+        //     $objectManager->flush();
         //     return $this->redirectToRoute('home_profile');
         // }
-        
+
+        // handle Form for P S E U D O
+        $formPseudo = $this->createForm(UserType::class, $user)
+            ->remove('email')
+            ->handleRequest($request);
+        $isPseudoModalOpen = false;
+
+        if ($formPseudo->isSubmitted() && !$formPseudo->isValid()) {
+            dump($formPseudo->getData()->getPseudo());
+            dump($user->getPseudo());
+            $user->setPseudo($formPseudo->getData()->getPseudo());
+            $isPseudoModalOpen = true;
+        }
+        if ($formPseudo->isSubmitted() && $formPseudo->isValid()) {
+            $this->addFlash('success', 'Profil mis à jour avec succès');
+            $objectManager->flush();
+            return $this->redirectToRoute('home_profile');
+        }
+        dump($formPseudo);
         $documents = $documentRepository->findDocumentByUser($user);
-        return $this->render('profile/index.html.twig',[
-            'formPassword' => $formPassword->createView(),
-            'formProfile' => $formProfile->createView(),
+        return $this->render('profile/index.html.twig', [
+            // 'formPassword' => $formPassword->createView(),
+            // 'isPassModalOpen' => $isPassModalOpen,
             'documents' => $documents,
-            'isModalOpen' => $isModalOpen,
+            'formPseudo' => $formPseudo->createView(),
+            'isPseudoModalOpen' => $isPseudoModalOpen,
+            'user' => $user
         ]);
     }
 
@@ -86,12 +97,11 @@ class ProfileController extends AbstractController
      */
     public function deleteDocuments(CourseDocument $document, ObjectManager $manager, Request $request)
     {
-        if($this->isCsrfTokenValid('delete' . $document->getId(), $request->get('_token'))){
+        if ($this->isCsrfTokenValid('delete' . $document->getId(), $request->get('_token'))) {
             $manager->remove($document);
             $manager->flush();
             $this->addFlash('success', 'Document supprimé avec succès');
         }
         return $this->redirectToRoute('home_profile');
     }
-
 }

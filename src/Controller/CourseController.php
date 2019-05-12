@@ -9,6 +9,7 @@ use App\Entity\CourseFavorites;
 use App\Repository\CourseRepository;
 use App\Repository\CourseCategoryRepository;
 use App\Repository\CourseFavoritesRepository;
+use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,9 +36,9 @@ class CourseController extends AbstractController
      */
     public function showCoursesFromOneCategory(CourseCategory $category, string $slug, Request $request)
     {
-        
-        if($category->getSlug() !== $slug){
-            return $this->redirectToRoute('course_category',[
+
+        if ($category->getSlug() !== $slug) {
+            return $this->redirectToRoute('course_category', [
                 'slug' => $category->getSlug()
             ], 301);
         }
@@ -47,7 +48,7 @@ class CourseController extends AbstractController
         $courses = $courseRepository->findCoursesWithSlug($slug);
         $categoryRepository = $this->categoryRepository;
         $category = $categoryRepository->findBy(array('slug' => $slug));
-        
+
 
         return $this->render('course/index.html.twig', [
             // We pass an array as props
@@ -94,7 +95,7 @@ class CourseController extends AbstractController
         } else {
             $courseFavorite = new CourseFavorites();
             $courseFavorite->setUser($user)
-                            ->setCourse($course);
+                ->setCourse($course);
             $manager->persist($courseFavorite);
             $manager->flush();
         }
@@ -130,9 +131,9 @@ class CourseController extends AbstractController
         $form = $this->createForm(CourseType::class, $course)
             ->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('success', 'Cours ajouté avec succès');
-            $course->setCreatedAt(new \DateTime('now'));
+            $course->setCreatedAt(new DateTime('now'));
             $entityManager->persist($course);
             $manager->flush();
             return $this->redirectToRoute('course_create');

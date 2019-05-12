@@ -3,6 +3,7 @@
 /.env.*
 /deploy_env.php
 
+/public/course
 /public/bundles/
 /var/
 /vendor/

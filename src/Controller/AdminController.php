@@ -18,20 +18,19 @@ class AdminController extends EasyAdminController
 
     /**
      * check if the updated course has been liked and remove from all favorites courses
-     * for all users 
+     * for all users
      */
     public function updateEntity($entity)
     {
         $manager = $this->manager;
-        if(!$entity instanceof Course){
+        if (!$entity instanceof Course) {
             parent::updateEntity($entity);
             return;
-        }
-        elseif($entity->getCourseCategory() == null) {
+        } elseif ($entity->getCourseCategory() == null) {
             $courseId = $entity->getId();
             $coursesLiked = $manager->getRepository(CourseFavorites::class)
-                                    ->findBy(["course" => $courseId]);
-            foreach($coursesLiked as $course){
+                ->findBy(["course" => $courseId]);
+            foreach ($coursesLiked as $course) {
                 $manager->remove($course);
             }
             $manager->flush();

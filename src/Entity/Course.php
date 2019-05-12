@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Entity\User;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use JsonSerializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -14,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="Le nom de ce cours existe déjà"
  * )
  */
-class Course implements \JsonSerializable
+class Course implements JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -216,12 +218,12 @@ class Course implements \JsonSerializable
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setCreatedAt(?DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -231,11 +233,11 @@ class Course implements \JsonSerializable
     public function jsonSerialize()
     {
         $arrayLabels = [];
-        foreach($this->labels as $label){
+        foreach ($this->labels as $label) {
             $arrayLabels[] = $label->getName();
         }
         $arrayFiles = [];
-        foreach($this->documents as $document){
+        foreach ($this->documents as $document) {
             $arrayFiles[] = [
                 "name" => $document->getName(),
                 "author" => $document->getAuthor()->getEmail(),

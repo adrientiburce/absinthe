@@ -74,32 +74,10 @@
     justify-content: space-between;
 
     &__btn {
-        padding: 2px 15px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-left: 10px;
-        border: 2px solid $blue-title;
-        border-radius: 24px;
-        background-color: $blue-dark;
-        color: white;
-        font-size: 15px;
-        transition: all .5s ease;
-        cursor: default !important;
-    
-        &:hover {
-            background-color: $blue-title;
-        }
-    
+        @include hover-label(2px 15px, 5px 10px, $blue-title, $blue-dark, $blue-title);
+
         &--matiere {
-            border: 2px solid $green-hell;
-            background-color: $green-btn;
-            margin-right: 10px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            
-            &:hover {
-                background-color: $green-hell;
-            }
+            @include hover-label(2px 15px, 5px 10px, $green-hell, $green-btn, $green-hell);
         }
     }
 }

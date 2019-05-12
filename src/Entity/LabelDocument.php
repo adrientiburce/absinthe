@@ -80,5 +80,4 @@ class LabelDocument
 
         return $this;
     }
-
 }

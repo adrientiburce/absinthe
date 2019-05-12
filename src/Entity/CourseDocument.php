@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CourseDocumentRepository")
@@ -30,10 +31,10 @@ class CourseDocument
     /**
      * @Vich\UploadableField(mapping="course_document", fileNameProperty="name")
      * @Assert\File(
-    *     maxSize = "5000k",
-    *     mimeTypes = {"application/pdf", "application/x-pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/msword"},
-    *     mimeTypesMessage = "Veuillez sélectionner un PDF ou un Word"
-    * )
+     *     maxSize = "5000k",
+     *     mimeTypes = {"application/pdf", "application/x-pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/msword"},
+     *     mimeTypesMessage = "Veuillez sélectionner un PDF ou un Word"
+     * )
      * @var File
      */
     private $document;
@@ -82,12 +83,12 @@ class CourseDocument
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -123,8 +124,8 @@ class CourseDocument
         $this->document = $document;
         // It is required that at least one field changes if you are using Doctrine,
         // otherwise the event listeners won't be called and the file is lost
-        if ($document instanceOf UploadedFile) {
-            $this->updatedAt = new \DateTime('now');
+        if ($document instanceof UploadedFile) {
+            $this->updatedAt = new DateTime('now');
         }
     }
 
@@ -161,5 +162,4 @@ class CourseDocument
 
         return $this;
     }
-
 }

@@ -4,24 +4,24 @@
             <mj-column>
 
                 <div class="container">
-                    <h3>Bienvenue sur Absinthe, le site de partage de cours à Centrale Lille </h3>
-                    <p>Voici les informations vous permettant de vous connecter à la plateforme : </p>
+                    <h3>Récupération de votre mot de passe </h3>
+                    <p>Voici vos <strong>nouveaux</strong> identifians pour vous connecter à la plateforme : </p>
                     <table>
                         <tr>
                             <td>Email :</td>
                             <td>{{user.email}}</td>
                         </tr>
                         <tr>
-                            <td>Login </td>
+                            <td>Pseudo :</td>
                             <td>{{user.pseudo|default('non renseingé')}}</td>
                         </tr>
                         <tr>
                             <td>Mot de Passe :</td>
-                            <td>{{ password }}</td>
+                            <td>{{ newPass }}</td>
                         </tr>
                     </table>
                     <div class="alert alert-warning">
-                        <p>Veuillez modifier votre mot de passe, pour plus de sécurité !</p>
+                        <p>Veuillez modifier votre mot de passe pour plus de sécurité !</p>
                     </div>
                     <p>Bonne navigation sur Absinthe !</p>
                 </div>

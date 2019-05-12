@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 class ChangePassword
 {
-    
 
     /**
      * @SecurityAssert\UserPassword(
@@ -16,39 +15,39 @@ class ChangePassword
      */
     private $oldPassword;
 
-     /**
-     * @Assert\Length(min=4, minMessage="Votre mot de passe doit contenir au moins 4 caractères")
+    /**
+     * @Assert\Length(min=6, minMessage="Votre mot de passe doit contenir au moins 6 caractères")
      */
     private $password;
 
     /**
-    * @Assert\EqualTo(propertyPath="password", message="Mot de passe renseigné différent du mot de passe défini")
-    */
+     * @Assert\EqualTo(propertyPath="password", message="Mot de passe renseigné différent du mot de passe défini")
+     */
     public $confirmPassword;
-    
-     /**
-      * Get message = "Wrong value for your current password"
-      */ 
-     public function getOldPassword()
-     {
-          return $this->oldPassword;
-     }
 
-     /**
-      * Set message = "Wrong value for your current password"
-      *
-      * @return  self
-      */ 
-     public function setOldPassword($oldPassword)
-     {
-          $this->oldPassword = $oldPassword;
+    /**
+     * Get message = "Wrong value for your current password"
+     */
+    public function getOldPassword()
+    {
+        return $this->oldPassword;
+    }
 
-          return $this;
-     }
+    /**
+     * Set message = "Wrong value for your current password"
+     *
+     * @return  self
+     */
+    public function setOldPassword($oldPassword)
+    {
+        $this->oldPassword = $oldPassword;
+
+        return $this;
+    }
 
     /**
      * Get the value of confirmPassword
-     */ 
+     */
     public function getConfirmPassword()
     {
         return $this->confirmPassword;
@@ -58,7 +57,7 @@ class ChangePassword
      * Set the value of confirmPassword
      *
      * @return  self
-     */ 
+     */
     public function setConfirmPassword($confirmPassword)
     {
         $this->confirmPassword = $confirmPassword;
@@ -68,7 +67,7 @@ class ChangePassword
 
     /**
      * Get the value of password
-     */ 
+     */
     public function getPassword()
     {
         return $this->password;
@@ -78,7 +77,7 @@ class ChangePassword
      * Set the value of password
      *
      * @return  self
-     */ 
+     */
     public function setPassword($password)
     {
         $this->password = $password;

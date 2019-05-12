@@ -22,8 +22,7 @@ class CourseRepository extends ServiceEntityRepository
     public function findAll()
     {
         return $this->createQueryBuilder('c')
-            ->orderBy('c.name', 'ASC')
-        ;
+            ->orderBy('c.name', 'ASC');
     }
 
     public function findCoursesWithCategory()
@@ -31,8 +30,7 @@ class CourseRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('course')
             ->innerJoin('course.courseCategory', 'categoryName', 'WITH', 'categoryName.name != :name')
             ->setParameter('name', 'null')
-            ->orderBy('course.name', 'ASC')  
-        ;
+            ->orderBy('course.name', 'ASC');
     }
 
     public function findCoursesWithSlug($slug)
@@ -43,8 +41,7 @@ class CourseRepository extends ServiceEntityRepository
             ->setParameter('slug', $slug)
             ->orderBy('c.name', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
     // /**
     //  * @return Course[] Returns an array of Course objects
@@ -57,8 +54,7 @@ class CourseRepository extends ServiceEntityRepository
             ->andWhere('favorites.user = :user')
             ->setParameter('user', $userId)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
 

@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\CourseCategory;
 use Doctrine\Common\Persistence\ObjectManager;
 
-
 class CategoryGenerator
 {
     private $manager;

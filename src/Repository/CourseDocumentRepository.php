@@ -22,7 +22,7 @@ class CourseDocumentRepository extends ServiceEntityRepository
     // /**
     //  * @return CourseDocument[] Returns an array of CourseDocument objects
     //  */
-    
+
     public function findDocumentByUser($user)
     {
         return $this->createQueryBuilder('document')
@@ -32,8 +32,7 @@ class CourseDocumentRepository extends ServiceEntityRepository
             ->andWhere('document.author = :user')
             ->setParameter('user', $user)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     /*

@@ -3,36 +3,9 @@
 @import "_variable.scss";
 @import "footer.scss";
 
-/*----------        All Mixins        ----------*/
-
-@mixin underline-link($color-underline: black){
-    text-decoration: none;
-    position: relative;
-    &::before{
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        bottom: -2px;
-        left: 0;
-        background-color: $color-underline;
-        visibility: hidden;
-        -webkit-transform: scaleX(0);
-        transform: scaleX(0);
-        -webkit-transition: all 0.3s ease-in-out 0s;
-        transition: all 0.3s ease-in-out 0s;
-    }
-    &:hover:before{
-        visibility: visible;
-        -webkit-transform: scaleX(1);
-        transform: scaleX(1);
-    }
-}
-
-/*----------        end mixins          ----------*/
 
 /*=============================================
-=            Login Page & Register            =
+=            Login Page & Register     =
 =============================================*/
 
 .login__btn {
@@ -56,6 +29,10 @@
 
 }
 
+.reset_link {
+    @include darken-link();
+    padding-left: 50px;
+}
 /*=====  End of Section comment block  ======*/
 
 
@@ -63,25 +40,14 @@
 =               Section  Navbar                =
 =============================================*/
 
-.nav-item {
-    #nav__logout {
-        color: rgb(192, 8, 8);
-        font-style: italic;
-        transition: color .2s ease;
 
-        &:hover,
-        &:focus {
-            color: rgb(236, 51, 51);
-        }
-    }
+#nav__logout {
+    font-style: italic;
+    @include darken-link(1em, rgb(192, 8, 8), rgb(236, 51, 51));
 }
 
 .navbar-dark .nav-item .link-login{
-    color: #61adc7;
-    transition: color .3s ease;
-    &:hover{ 
-        color: #b7edff;
-    }
+    @include darken-link(1em, #61adc7, #b7edff);
 }
 
 .link-underline {

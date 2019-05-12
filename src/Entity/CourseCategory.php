@@ -46,7 +46,7 @@ class CourseCategory
      *     match=true,
      *     message="Votre slug doit etre en minuscule, sans espace et avec des '-'"
      * )
-    */
+     */
     private $slug;
 
     public function __construct()

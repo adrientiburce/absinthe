@@ -4,19 +4,12 @@
 
 {% block body %}
 <div class="container mt-4">
-    {% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-    {% endfor %}
-       {% for message in app.flashes('danger') %}
-    <div class="alert alert-danger">
-        {{ message }}
-    </div>
-    {% endfor %}
     <form method="post">
         {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert alert-warning alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Attention !</strong> {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
         {% endif %}
 
         <h1 class="h3 mb-3 font-weight-normal">Entrez vos identifiants :</h1>
@@ -42,10 +35,15 @@
             <label>
                 <input type="checkbox" name="_remember_me"> Se souvenir de moi
             </label>
+             <a href="{{path('reset_pass')}}" class="reset_link">
+                Mot de Passe oublié
+            </a>
         </div>
         <button class="login__btn" type="submit">
             Connexion
         </button>
+        <br>
+       
     </form>
 </div>
 {% endblock %}

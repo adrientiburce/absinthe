@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Listener;
 
 use App\Entity\CourseFavorites;
@@ -8,16 +9,14 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\Common\Persistence\ObjectManager;
 
-
 class FavoriteSubscriber implements EventSubscriber
 {
-    
+
     private $manager;
 
     public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;
-
     }
 
     public function getSubscribedEvents()
@@ -26,25 +25,23 @@ class FavoriteSubscriber implements EventSubscriber
             'postUpdate',
         ];
     }
-    
+
     public function postUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getObject();
-        if(!$entity instanceof Course){
+        if (!$entity instanceof Course) {
             return;
-        }
-        // elseif($entity->getCourseCategory() == null){
-        else{
+        } // elseif($entity->getCourseCategory() == null){
+        else {
             // we remove this course from all users favorites courses
             $manager = $this->manager;
             $courseId = $entity->getId();
             $entityManager = $args->getObjectManager();
             $coursesLiked = $manager->getRepository(CourseFavorites::class)
-                                    ->findAll();
+                ->findAll();
             // print_r($coursesLiked);
-            foreach($coursesLiked as $course){
+            foreach ($coursesLiked as $course) {
                 $manager->remove($course);
-                
             }
             $manager->flush();
         };
@@ -68,4 +65,4 @@ class FavoriteSubscriber implements EventSubscriber
 
     //     };
     // }
-} 
+}

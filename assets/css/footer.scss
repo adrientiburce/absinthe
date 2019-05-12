@@ -77,13 +77,7 @@
             list-style: none;
 
             li a {
-                color: dimgray;
-                transition: color .4s ease;
-
-                &:hover {
-                    color: black;
-                    transition: color .4s ease
-                }
+                @include darken-link(1em, dimgray, black);
             }
 
         }

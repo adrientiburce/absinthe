@@ -25,9 +25,9 @@ class ApiController extends AbstractController
             ->getRepository(CourseCategory::class)
             ->findAll();
 
-            return new JsonResponse([
-                'courses'=>$serializer->normalize($courses),
-            ]);
+        return new JsonResponse([
+            'courses' => $serializer->normalize($courses),
+        ]);
     }
 
     /**
@@ -42,9 +42,9 @@ class ApiController extends AbstractController
             ->getRepository(Course::class)
             ->find($id);
         $isLikedByUser = $course->isLikedByUser($this->getUser());
-        
+
         return new JsonResponse([
-            'course'=>$serializer->normalize($course),
+            'course' => $serializer->normalize($course),
             'isLikedByUser' => $isLikedByUser
         ]);
     }

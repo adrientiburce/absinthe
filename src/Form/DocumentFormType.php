@@ -23,8 +23,8 @@ class DocumentFormType extends AbstractType
                 'choice_label' => 'name',
                 'query_builder' => function (CourseRepository $repo) {
                     return $repo->findCoursesWithCategory();
-                    },
-                'group_by' => function(Course $choiceValue) {
+                },
+                'group_by' => function (Course $choiceValue) {
                     return $choiceValue->getCourseCategory();
                 },
                 'required' => true,
@@ -35,13 +35,12 @@ class DocumentFormType extends AbstractType
                 'required' => true,
                 'attr' => array('class' => 'file-upload-name'),
             ])
-            ->add('label',EntityType::class, [
+            ->add('label', EntityType::class, [
                 'class' => LabelDocument::class,
                 'choice_label' => 'name',
                 'label' => 'Label',
                 'required' => true,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

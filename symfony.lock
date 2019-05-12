@@ -113,6 +113,9 @@
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
+    "hackzilla/password-generator": {
+        "version": "1.4.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

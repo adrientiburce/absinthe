@@ -1,23 +1,24 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}<title>Absinthe - Créer un Cours</title>{% endblock %}
 {% block stylesheets %}
-{{ parent() }}
+    {{ parent() }}
 {% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <h1 class="mb-4">Créer un cours</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">Créer un cours</h1>
 
-{{form_start(form)}}
-{{form_rest(form)}}
-<button class="btn btn-success" type="submit">
-Enregistrer
-</button>
-{{form_end(form)}}
+        {{ form_start() }}
+        {{ form_rest() }}
+        <button class="btn btn-success" type="submit">
+            Enregistrer
+        </button>
+        {{ form_end() }}
 
-</div>
+    </div>
 {% endblock %}
 {% block javascripts %}
-{{ parent() }}
-{{ encore_entry_script_tags('browse') }}
+    {{ parent() }}
+    {{ encore_entry_script_tags('browse') }}
 {% endblock %}

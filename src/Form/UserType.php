@@ -22,15 +22,7 @@ class UserType extends AbstractType
                 'label' => 'Pseudo (optionnel)',
                 'attr' => ['placeholder' => 'votre pseudo'],
                 'required' => false,
-            ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe (min 6 caractères)',
-            ])
-            ->add('confirm_password', PasswordType::class, [
-                'label' => 'Confirmation du mot de passe',
-
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

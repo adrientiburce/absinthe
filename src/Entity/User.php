@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,6 +27,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
+     * @Assert\Email(
+     *     message = "L'email {{ value }} n'es pas valide")
      * @Assert\Regex(
      *      pattern="/@centrale.centralelille.fr$/",
      *      message="Votre adresse doit avoir comme domaine : @centrale.centralelille.fr"
@@ -41,16 +44,8 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\Length(min=6, minMessage="Votre mot de passe doit contenir au moins 6 caractères")
-     * @Assert\EqualTo(propertyPath="confirm_password", message="Vos mot de passe sont différents")
      */
     private $password;
-
-    /**
-     * @var string
-     * @Assert\EqualTo(propertyPath="password", message="Vos mot de passe sont différents")
-     */
-    private $confirmPassword;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -103,7 +98,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -130,7 +125,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -157,42 +152,18 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    public function setCreatedAt(?DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-
-    /**
-     * Get the value of confirmPassword
-     *
-     * @return  string
-     */
-    public function getConfirmPassword()
-    {
-        return $this->confirmPassword;
-    }
-
-    /**
-     * Set the value of confirmPassword
-     *
-     * @param  string  $confirmPassword
-     *
-     * @return  self
-     */
-    public function setConfirmPassword(string $confirmPassword)
-    {
-        $this->confirmPassword = $confirmPassword;
-
-        return $this;
-    }
 
     public function getPseudo(): ?string
     {

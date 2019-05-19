@@ -39,7 +39,7 @@ class DocumentFormType extends AbstractType
                 'class' => LabelDocument::class,
                 'choice_label' => 'name',
                 'label' => 'Label',
-                'required' => true,
+/*                'required' => true,*/
             ]);
     }
 

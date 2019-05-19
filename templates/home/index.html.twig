@@ -1,44 +1,77 @@
 {% extends 'base.html.twig' %}
         {% block title %}<title>Absinthe - Accueil</title>{% endblock %}
         {% block stylesheets %}
-        {{ parent() }}
+            {{ parent() }}
         {% endblock %}
 
         {% block body %}
-<div class="container mt-4">
-<h1 class="text-center">Accueil</h1>
-</div>
-<div class="container">
-<p>
-    Bienvenue sur Absinthe, vous pourrez ici retrouver différents cours et corrigés du cursus de l'Ecole Centrale
-    Lille
-</p>
+            <div class="container mt-4">
+                <h1 class="text-center">Accueil</h1>
+            </div>
+            <div class="container">
+                <p>
+                    Bienvenue sur Absinthe, vous pourrez ici retrouver différents cours et corrigés du cursus de l'Ecole
+                    Centrale
+                    Lille
+                </p>
 
-<hr/>
+                <hr/>
 
-{% if app.user %}
-<div class="alert-homepage">
-    <h2 class="title">Ajouter un cours : </h2>
-    <p>Si vous ne trouvez pas un cours pour lequel vous souhaitez ajouter un document, veuillez <a
-            href="{{path('course_create')}}" class="alert-homepage__link strong">Cliquer ici </a>
-    </p>
-</div>
-{% else %}
+                {% if app.user %}
+                    <div class="alert-homepage">
+                        <h2 class="title">Ajouter un cours : </h2>
+                        <p>Si vous ne trouvez pas un cours pour lequel vous souhaitez ajouter un document, veuillez <a
+                                    href="{{ path('course_create') }}" class="alert-homepage__link strong">Cliquer
+                                ici </a>
+                        </p>
+                    </div>
+                    <div class="alert-homepage">
+                        <h2 class="title">Derniers documents ajoutés :</h2>
+                        <div class="table-mobile">
+                            <table class="table table-hover mt-2">
+                                {% if lastDocuments is empty %}
+                                    <p>Il n'y a actuellement aucun document</p>
+                                {% else %}
+                                    <thead>
+                                    <tr>
+                                        <th>Document</th>
+                                        <th>Cours</th>
+                                        <th>Auteur</th>
+                                        <th>Date d'upload</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for document in lastDocuments|reverse %}
+                                        <tr>
+                                            <td>{{ document.name }}</td>
 
+                                            <td><a href="{{ path('course_show', {'id': document.course.id}) }}"
+                                                   class="link-course"
+                                                   title="Voir le cours">{{ document.course.name }}</a></td>
+                                            <td>{{ document.author.email }}</td>
+                                            <td>{{ document.updatedAt|date("d/m/Y") }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                {% endif %}
 
-<div class="alert-homepage">
-    <h2 class="title">Inscription </h2>
-    <p> Pour vous <strong>inscrire</strong> et pouvoir accéder aux cours :
-        <a href="{{path('register')}}" class="alert-homepage__link strong">
-            Cliquer ici
-        </a>
-    </p>
-</div>
-{% endif %}
+                            </table>
+                        </div>
+                    </div>
+                {% else %}
 
+                    <div class="alert-homepage">
+                        <h2 class="title">Inscription </h2>
+                        <p> Pour vous <strong>inscrire</strong> et pouvoir accéder aux cours :
+                            <a href="{{ path('register') }}" class="alert-homepage__link strong">
+                                Cliquer ici
+                            </a>
+                        </p>
+                    </div>
+                {% endif %}
 
-</div>
+            </div>
         {% endblock %}
         {% block javascripts %}
-        {{ parent() }}
+            {{ parent() }}
         {% endblock %}

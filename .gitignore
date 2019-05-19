@@ -2,9 +2,11 @@
 ###> symfony/framework-bundle ###
 /.env.*
 /deploy_env.php
+/.idea/*
 
 /public/course
 /public/bundles/
+
 /var/
 /vendor/
 /config/prod/deploy.php

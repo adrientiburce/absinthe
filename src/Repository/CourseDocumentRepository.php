@@ -23,6 +23,14 @@ class CourseDocumentRepository extends ServiceEntityRepository
     //  * @return CourseDocument[] Returns an array of CourseDocument objects
     //  */
 
+    public function findLastDocument($maxResult)
+    {
+        return $this->createQueryBuilder('document')
+            ->setMaxResults($maxResult)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findDocumentByUser($user)
     {
         return $this->createQueryBuilder('document')

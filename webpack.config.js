@@ -11,6 +11,7 @@ Encore
   .addEntry('app', './assets/js/clientSideEntryPoint.js')
 
   .addEntry('browse', './assets/js/browse.js')
+  .addEntry('modal', './assets/js/modal.js')
 
   // allow sass/scss files to be processed
   .enableSassLoader()

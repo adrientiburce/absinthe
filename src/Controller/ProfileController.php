@@ -45,35 +45,31 @@ class ProfileController extends AbstractController
         $user = $this->getUser();
         $objectManager = $this->objectManager;
         // handle Form for P A S S W O R D
-        // $userPassword = new ChangePassword();
-        // $formPassword=$this->createForm(ChangePasswordType::class, $userPassword)
-        //                     ->handleRequest($request);
-
-        // $isPassModalOpen = false;
-        // if($formPassword->isSubmitted() && !$formPassword->isValid()){
-        //     $isPassModalOpen = true;
-        // }
-        // if($formPassword->isSubmitted() && $formPassword->isValid()){
-        //     $this->addFlash('success', 'Mot de Passe mis à jour avec succès');
-        //     $hash = $encoder->encodePassword(
-        //             $user,
-        //             $userPassword->getPassword());
-        //     $user->setPassword($hash);
-        //     $objectManager->flush();
-        //     return $this->redirectToRoute('home_profile');
-        // }
+        $userPassword = new ChangePassword();
+        $formPassword = $this->createForm(ChangePasswordType::class, $userPassword)
+                            ->handleRequest($request);
+        $isPassModalOpen = false;
+        if ($formPassword->isSubmitted() && !$formPassword->isValid()) {
+            $isPassModalOpen = true;
+        }
+        if ($formPassword->isSubmitted() && $formPassword->isValid()) {
+            $this->addFlash('success', 'Mot de Passe mis à jour avec succès');
+            $hash = $encoder->encodePassword($user, $userPassword->getPassword());
+            $user->setPassword($hash);
+            $objectManager->flush();
+            return $this->redirectToRoute('home_profile');
+        }
 
         // handle Form for P S E U D O
+        $tempPseudo = $user->getPseudo();
         $formPseudo = $this->createForm(UserType::class, $user)
             ->remove('email')
             ->handleRequest($request);
-        $isPseudoModalOpen = false;
 
+        $isPseudoModalOpen = false;
         if ($formPseudo->isSubmitted() && !$formPseudo->isValid()) {
-            dump($formPseudo->getData()->getPseudo());
-            dump($user->getPseudo());
-            $user->setPseudo($formPseudo->getData()->getPseudo());
             $isPseudoModalOpen = true;
+            $user->setPseudo($tempPseudo);
         }
         if ($formPseudo->isSubmitted() && $formPseudo->isValid()) {
             $this->addFlash('success', 'Profil mis à jour avec succès');
@@ -83,11 +79,11 @@ class ProfileController extends AbstractController
         dump($formPseudo);
         $documents = $documentRepository->findDocumentByUser($user);
         return $this->render('profile/index.html.twig', [
-            // 'formPassword' => $formPassword->createView(),
-            // 'isPassModalOpen' => $isPassModalOpen,
-            'documents' => $documents,
+            'formPassword' => $formPassword->createView(),
+            'isPasswordModalOpen' => $isPassModalOpen,
             'formPseudo' => $formPseudo->createView(),
             'isPseudoModalOpen' => $isPseudoModalOpen,
+            'documents' => $documents,
             'user' => $user
         ]);
     }

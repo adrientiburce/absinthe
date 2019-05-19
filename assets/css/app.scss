@@ -9,30 +9,31 @@
 =============================================*/
 
 .login__btn {
-    padding: 5px 15px;
-    border: 2px solid $blue-dark;
-    background-color: #fff;
-    border-radius: 24px;
-    color: dimgray;
-    opacity: .6;
-    cursor: pointer;
-    transition: all .4s ease-in-out;
+  padding: 5px 15px;
+  border: 2px solid $blue-dark;
+  background-color: #fff;
+  border-radius: 24px;
+  color: dimgray;
+  opacity: .6;
+  cursor: pointer;
+  transition: all .4s ease-in-out;
 
-    &:hover,
-    &:focus {
-        opacity: 1;
-        padding: 5px 30px;
-        color: white;
-        background-color: $blue-dark;
-        border-color: $blue-hell
-    }
+  &:hover,
+  &:focus {
+    opacity: 1;
+    padding: 5px 30px;
+    color: white;
+    background-color: $blue-dark;
+    border-color: $blue-hell
+  }
 
 }
 
 .reset_link {
-    @include darken-link();
-    padding-left: 50px;
+  @include darken-link();
+  padding-left: 50px;
 }
+
 /*=====  End of Section comment block  ======*/
 
 
@@ -42,16 +43,16 @@
 
 
 #nav__logout {
-    font-style: italic;
-    @include darken-link(1em, rgb(192, 8, 8), rgb(236, 51, 51));
+  font-style: italic;
+  @include darken-link(1em, rgb(192, 8, 8), rgb(236, 51, 51));
 }
 
-.navbar-dark .nav-item .link-login{
-    @include darken-link(1em, #61adc7, #b7edff);
+.navbar-dark .nav-item .link-login {
+  @include darken-link(1em, #61adc7, #b7edff);
 }
 
 .link-underline {
-    @include underline-link(white);
+  @include underline-link(white);
 }
 
 /*=====  End of Section Navbar          ======*/
@@ -62,80 +63,182 @@
 =============================================*/
 
 .courses-title {
-    text-align: center;
-    margin-top: 20px;
-    color: $blue-dark;
+  text-align: center;
+  margin-top: 20px;
+  color: $blue-dark;
 }
 
 .card-courses__btn {
-    border: 3px $blue-hell solid;
-    transition: all .3s ease;
-    display: inline-block;
-    position: absolute;
-    bottom: 10px;
+  border: 3px $blue-hell solid;
+  transition: all .3s ease;
+  display: inline-block;
+  position: absolute;
+  bottom: 10px;
 
-    &:hover {
-        background-color: rgb(170, 194, 201);
-    }
+  &:hover {
+    background-color: rgb(170, 194, 201);
+  }
 }
 
 /*=====  End of Section Courses          ======*/
-
 
 
 /*=============================================
 =            Section homepage               =
 =============================================*/
 
-.link-course{
-    display: inline-block;
-    font-size: 18px;
-    font-style: italic;
-    transition: all .5s ease;
-    &:hover{
-        color: grey;
-        transform: scale(1.05);
-    }
+.link-course {
+  display: inline-block;
+  font-size: 18px;
+  font-style: italic;
+  transition: all .5s ease;
+
+  &:hover {
+    color: grey;
+    transform: scale(1.05);
+  }
 }
 
-.alert-homepage{
-    margin-top: 30px;
-    border: 2px solid #8d8894;
-    box-shadow: 2px 2px 6px $grey-footer;
-    border-radius: 5px;
-    padding: 10px 20px;
-    transition: all .5s ease;
-    &:hover{
-        box-shadow: 3px 3px 10px #89a3d4;
-    }
-    .title{
-        margin: 5px 0 10px 30px;
-        color: grey;
-    }
+.alert-homepage {
+  margin-top: 30px;
+  border: 2px solid #8d8894;
+  box-shadow: 2px 2px 6px $grey-footer;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: all .5s ease;
 
-    &__link{
-        @include underline-link;
-    }
+  &:last-child {
+    margin-bottom: 10px;
+  }
 
-    p{
-        margin-bottom: 0;
-    }
+  &:hover {
+    box-shadow: 3px 3px 10px #89a3d4;
+  }
+
+  .title {
+    margin: 5px 0 10px 30px;
+    color: grey;
+  }
+
+  &__link {
+    @include underline-link;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
 }
 
-.strong{
-    font-weight: bold;
+.strong {
+  font-weight: bold;
 }
 
 /*=====  End of Section homepage        ======*/
 
 
 /*=============================================
-=            Section        Profile            =
+=            Section  Profile    + MODAL       =
 =============================================*/
 
-.table-mobile{
-    overflow-x: auto;
+.table-mobile {
+  overflow-x: auto;
 }
 
+.modalTitle {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.marginBotton {
+  margin-bottom: 4rem;
+}
+
+.footerModal {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+
+  &--center {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.btnCloseReplace {
+  color: #fff !important;
+  position: relative;
+  top: -4px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .7);
+  animation: fadeIn .3s both;
+}
+
+.modal-wraper {
+  overflow: auto;
+  width: 600px;
+  min-height: 400px;
+  position: relative;
+  padding: 15px 20px;
+  border-radius: 10px;
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 20px);
+  background-color: #fff;
+  animation: slideFromTop .5s both;
+}
+
+.modal[aria-hidden="true"] {
+  animation-name: fadeOut;
+}
+
+.modal[aria-hidden="true"] .modal-wraper {
+  animation-name: slideToBottom;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideFromTop {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideToBottom {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
 
 /*=====  End of Section Profile          ======*/

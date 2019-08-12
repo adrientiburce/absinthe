@@ -236,10 +236,12 @@ class Course implements \JsonSerializable
         }
         $arrayFiles = [];
         foreach($this->documents as $document){
+            $labelName = ($label = $document->getLabel()) ? $label->getName() : null ;
+
             $arrayFiles[] = [
                 "name" => $document->getName(),
                 "author" => $document->getAuthor()->getEmail(),
-                "label" => $document->getLabel()->getName(),
+                "label" => $labelName ,
                 "date" => $document->getUpdatedAt()];
         }
 

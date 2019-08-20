@@ -34,23 +34,9 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     * @Assert\Length(min=6, minMessage="Votre mot de passe doit contenir au moins 6 caractères")
-     * @Assert\EqualTo(propertyPath="confirm_password", message="Vos mot de passe sont différents")
-     */
-    private $password;
-
-    /**
-     * @var string
-     * @Assert\EqualTo(propertyPath="password", message="Vos mot de passe sont différents")
-     */
-    private $confirmPassword;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -73,6 +59,16 @@ class User implements UserInterface
      */
     private $courseDocuments;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $firstName;
+
     public function __construct()
     {
         $this->favoritesCourses = new ArrayCollection();
@@ -88,10 +84,21 @@ class User implements UserInterface
     {
         return $this->email;
     }
-
+    
     public function setEmail(string $email): self
     {
         $this->email = $email;
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
@@ -128,16 +135,9 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword()
     {
-        return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
+        // not needed for apps that do not check user passwords
     }
 
     /**
@@ -145,7 +145,7 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        // not needed for apps that do not check user passwords
     }
 
     /**
@@ -169,43 +169,6 @@ class User implements UserInterface
         return $this;
     }
 
-
-    /**
-     * Get the value of confirmPassword
-     *
-     * @return  string
-     */
-    public function getConfirmPassword()
-    {
-        return $this->confirmPassword;
-    }
-
-    /**
-     * Set the value of confirmPassword
-     *
-     * @param  string  $confirmPassword
-     *
-     * @return  self
-     */
-    public function setConfirmPassword(string $confirmPassword)
-    {
-        $this->confirmPassword = $confirmPassword;
-
-        return $this;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(?string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
     /**
      * @return Collection|CourseFavorites[]
      */
@@ -213,14 +176,13 @@ class User implements UserInterface
     {
         return $this->favoritesCourses;
     }
-
+    
     public function addFavoritesCourse(CourseFavorites $favoritesCourse): self
     {
         if (!$this->favoritesCourses->contains($favoritesCourse)) {
             $this->favoritesCourses[] = $favoritesCourse;
             $favoritesCourse->setUser($this);
         }
-
         return $this;
     }
 
@@ -233,7 +195,6 @@ class User implements UserInterface
                 $favoritesCourse->setUser(null);
             }
         }
-
         return $this;
     }
 
@@ -251,7 +212,6 @@ class User implements UserInterface
             $this->courseDocuments[] = $courseDocument;
             $courseDocument->setAuthor($this);
         }
-
         return $this;
     }
 
@@ -264,12 +224,35 @@ class User implements UserInterface
                 $courseDocument->setAuthor(null);
             }
         }
-
         return $this;
     }
 
     public function __toString()
     {
         return $this->email;
+    }
+
+    public function getlastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setlastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
     }
 }

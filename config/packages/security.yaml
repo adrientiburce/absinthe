@@ -9,9 +9,9 @@ security:
             entity:
                 class: App\Entity\User
                 # property: email
-
+                
     role_hierarchy:
-        ROLE_MODETATEUR: ROLE_USER
+        ROLE_MODERATEUR: ROLE_USER
         ROLE_ADMIN: ROLE_MODERATEUR
         ROLE_DEV: ROLE_ADMIN
 
@@ -23,7 +23,7 @@ security:
             anonymous: true
             guard:
                 authenticators:
-                    - App\Security\LoginFormAuthenticator
+                    - App\Security\TokenAuthenticator
             logout:
                 path: app_logout
                 target: home

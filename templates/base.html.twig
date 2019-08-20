@@ -57,14 +57,11 @@
                     <li class="nav-item">
                         <a class="nav-link link-login" href="{{path('app_login')}}">Connexion </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('register')}}">Inscription </a>
-                    </li>
                     {% endif %}
                 </ul>
                 {% if app.user %}
                 <span class="navbar-text">
-                    Bonjour {{ app.user.pseudo ? app.user.pseudo : app.user.email }} - <a href="{{ path('home_profile') }}"
+                    Bonjour {{ app.user.firstName }} - <a href="{{ path('home_profile') }}"
                         class="link-underline"> Mon Compte</a>&nbsp;
                 </span>
                 {% endif %}

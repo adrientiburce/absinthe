@@ -10,6 +10,7 @@ use App\Repository\CourseDocumentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,54 +26,33 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/login/cla", name="app_login_cla")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login_cla(): Response
     {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error
-        ]);
+        //est géré par le CAS du CLA : donc on redirige vers l'adresse du form de log in
+        return new RedirectResponse('http://cla.jeanba.fr/authentification/abc');
     }
 
     /**
-     * @Route("/inscription", name="register")
+     * @Route("/login", name="app_login")
      */
-    public function registration(ObjectManager $manager, Request $request, UserPasswordEncoderInterface $encoder)
+    public function login(Request $request) : Response
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setCreatedAt(new \DateTime());
-            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+        $title  = $request->query->get('title');
+        $contentText = $request->query->get('content-text');
 
-            $manager->persist($user);
-            $manager->flush();
-
-            $this->addFlash('success', 'Utilisateur créé avec succès !');
-            return $this->redirectToRoute('app_login');
-        }
-        // else{
-        //     $this->addFlash('danger', 'Un problème est survenu');
-        //     return $this->redirectToRoute('register');
-        // }
-        return $this->render('security/register.html.twig', [
-            'form' => $form->createView(),
-
+        return $this->render('security/login.html.twig', [
+            'title' => $title,
+            'contentText' => $contentText
         ]);
     }
 
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
+    public function logout(): void
     {
-        return $this->redirectToRoute('home');
+        throw new \Exception('This should never be reached!');
     }
 }

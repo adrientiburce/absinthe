@@ -1,5 +1,6 @@
 
 ###> symfony/framework-bundle ###
+/.idea
 /.env.*
 /deploy_env.php
 

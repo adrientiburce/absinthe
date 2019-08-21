@@ -21,3 +21,7 @@ En utilisant les recettes spécifiés dans le `package.json` :
 ### Lancer le serveur de développement : 
 
 - `php bin/console server:start` et se rendre à l'adresse `localhost:8000`
+
+### Documentation :
+
+- Une documentation succincte du projet est disponible [ici](Notes.md)

@@ -20,6 +20,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 {
     private $em;
     private $router;
+    private $ticket;
+    private $json_response;
+    private $user;
 
     public function __construct(EntityManagerInterface $em, RouterInterface $router)
     {
@@ -34,8 +37,18 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        if('app_login_cla' === $request->attributes->get('_route') && ($ticket = $request->query->get('ticket'))!=null) {
-            return true;
+        $context = stream_context_create(array(
+            'http' => array('ignore_errors' => true),
+        ));
+
+        if('app_login' === $request->attributes->get('_route') && ($this->ticket = $request->query->get('ticket'))!=null) {
+            if (($this->json_response = json_decode(file_get_contents("http://cla-dev.jeanba.fr/authentification/abc/".urlencode($this->ticket),false, $context),true)) 
+                && $this->json_response['success'] == "true") {
+                    $this->user = $this->json_response['payload'];
+                    if (substr($this->user['cursus'],0,5) == 'ING-G') { //on vérifie que c'est bien un centralien
+                        return true;
+                    }
+            }
         }
         return false;
     }
@@ -46,23 +59,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        $ticket = $request->query->get('ticket');
-        if (($answer = json_decode(file_get_contents('http://cla.jeanba.fr/authentification/abc/'.$ticket),true)) && $answer['login'] == "true") {
-            return $answer['user'];
-        }
-        return false;
-        
+        return $this->user;
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        if (!$credentials['student']) { //Si l'élève n'est pas un étudiant de Centrale
-            return;
-        }
-
         $firstName = $credentials['firstName'];
         $lastName = $credentials['lastName'];
-        $email = $credentials['email'];
+        $email = $credentials['emailCentrale'];
         
         $user = $this->em->getRepository(User::class)
         ->findOneBy(['email' => $email]);
@@ -79,7 +83,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         $user = new User();
      
-        $user->setEmail($email);
+        if ($email)
+            $user->setEmail($email);
         $user->setFirstName($firstName);
         $user->setlastName($lastName);
         $user->setPseudo(strtolower($firstName).'.'.strtolower($lastName));
@@ -109,8 +114,17 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         return new RedirectResponse($this->router->generate('app_login', array(
             'title' => "L'authentification a échoué...",
-            'content-text' => 'Rééssayer'
+            'content-text' => 'Réessayer'
         )));
+
+        $data = [
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+
+            // or to translate this message
+            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
+        ];
+
+        return new JsonResponse($data, Response::HTTP_FORBIDDEN);
     }
 
     /**

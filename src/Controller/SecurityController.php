@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 class SecurityController extends AbstractController
 {
@@ -26,23 +27,25 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login/cla", name="app_login_cla")
-     */
-    public function login_cla(): Response
-    {
-        //est géré par le CAS du CLA : donc on redirige vers l'adresse du form de log in
-        return new RedirectResponse('http://cla.jeanba.fr/authentification/abc');
-    }
-
-    /**
      * @Route("/login", name="app_login")
      */
     public function login(Request $request) : Response
     {
-        $title  = $request->query->get('title');
-        $contentText = $request->query->get('content-text');
+        if ($this->isGranted('ROLE_USER')) { //Accessible seulement si on n'est pas déjà connecté
+            return $this->redirectToRoute('home');
+        }
 
-        return $this->render('security/login.html.twig', [
+        if ($request->query->get('ticket') == null) { //est géré par le CAS du CLA : donc on redirige vers l'adresse du form de log in
+            return new RedirectResponse('http://cla-dev.jeanba.fr/authentification/abc');
+        }
+
+        if (($title = $request->query->get('title')) == null) //Si pas de title, on en met un par défaut
+            $title = "L'authentification a échoué...";
+
+        if (($contentText = $request->query->get('content-text')) == null) //Si pas de content, on en met un par défaut
+            $contentText = "Réessayer";
+
+        return $this->render('security/login.html.twig', [ //on redirige vers la bonne page
             'title' => $title,
             'contentText' => $contentText
         ]);

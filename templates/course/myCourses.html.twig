@@ -2,9 +2,9 @@
 
 {% set courses = react_component_array('MyCourse', {'props': props}) %}
 {% block title %}
-{{ courses.title is defined ? courses.title | raw : '' }}
+    {{ courses.title is defined ? courses.title | raw : '' }}
 {% endblock title %}
 
 {% block body %}
-{{ courses.componentHtml | raw }}
+    {{ courses.componentHtml | raw }}
 {% endblock %}

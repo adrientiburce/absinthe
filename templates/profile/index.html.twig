@@ -16,14 +16,6 @@
                 <th>Pseudo</th>
                 <td>{{app.user.pseudo|default('non renseigné')}}</td>
             </tr>
-            <tr>
-                <th>Mot de Passe </th>
-                <td>
-                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#formProfile">
-                        Modifier
-                    </button>
-                </td>
-            </tr>
         </tbody>
     </table>
     </br>
@@ -61,30 +53,6 @@
         
     </table>
     </div>
-    <div class="modal fade" id="formProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" data-focus="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modifier le mot de passe</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{form_start(formPassword)}}
-                    {{form_rest(formPassword)}}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    <button type="submit" class="btn btn-success" id="envoyer" class="btn btn-md btn-kitn" name="Envoyer"
-                        value="Enregistrer">Enregistrer</button>
-                </div>
-                {{form_end(formPassword)}}
-
-            </div>
-        </div>
-    </div> 
 
     </hr>
     {# {{form_start(formProfile)}}

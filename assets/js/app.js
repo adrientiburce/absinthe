@@ -13,7 +13,7 @@ require('../js/components/CourseList/courseList.scss');
 require('../js/components/CourseSmall/courseSmall.scss');
 
 // IMAGE :
-require('../img/logo.jpg');
+require('../img/logo_lillusion_small.png');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 
